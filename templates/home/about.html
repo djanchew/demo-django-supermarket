@@ -1,0 +1,104 @@
+{% extends "home/all.html" %}
+
+{% block title %}
+-关于
+{% endblock %}
+
+{% block loc %}
+        关于
+{% endblock loc %}
+{% block main %}
+
+	<!-- about-slid -->
+	<div class="about-slid agileits-w3layouts">
+		<div class="container">
+			<div class="about-slid-info">
+				<h2>优选百货，品质生活</h2>
+				<p>每天都会进行一次上架商品的检查，每周都会进行一次库存货物的更新，保证您的购物品质和体验</p>
+			</div>
+		</div>
+	</div>
+	<!-- //about-slid -->
+
+<!-- about -->
+	<div class="about">
+		<div class="container">
+			<h3 class="w3_agile_header">ABOUT</h3>
+			<div class="about-agileinfo w3layouts">
+				<div class="col-md-8 about-wthree-grids grid-top">
+					<h4>对于网站前端的说明：</h4>
+                    <p>本网站的前端展示内容，基本来源于右边显示的网站，是已经过稍加修改的。
+                    如果有侵犯到您的权益，请在下方反馈入口进行反馈，并留下您的联系方式，我会在收到消息之后的三日内与您取得联系。谢谢！
+                    </p>
+                    <div class="about-w3agilerow">
+						<div class="about-slid agileits-w3layouts">
+                    </div>
+						<div class="clearfix"> </div>
+					</div>
+                    <br>
+					<h4>Statement：</h4>
+                    <p>The display pages of this site are basically from the site on the right side, which was slightly modified.
+                        If there is any violation of your rights and interests, please feedback through the entry-link below
+                        and leave your contact information, I will get in touch with you within three days after receiving the message. Thanks!
+                    </p>
+				</div>
+				<div class="col-md-4 about-wthree-grids">
+					<div class="offic-time">
+						<div class="time-top">
+							<h4>网站前端素材：</h4>
+						</div>
+						<div class="time-bottom">
+							<h5>来自  ——  模板之家</h5>
+							<p>www.cssmoban.com </p>
+						</div>
+					</div>
+                    <!--最近评价-->
+					<div class="testi">
+						<a href="/feedback"> <h3 class="w3_agile_header">反馈 &amp; 评价</h3></a>
+						<!--//End-slider-script -->
+						<script src="../../../static/home/js/responsiveslides.min.js"></script>
+						 <script>
+							// You can also use "$(window).load(function() {"
+							$(function () {
+							  // Slideshow 5
+							  $("#slider5").responsiveSlides({
+								auto: true,
+								pager: false,
+								nav: true,
+								speed: 500,
+								namespace: "callbacks",
+								before: function () {
+								  $('.events').append("<li>before event fired.</li>");
+								},
+								after: function () {
+								  $('.events').append("<li>after event fired.</li>");
+								}
+							  });
+
+							});
+						  </script>
+						<div  id="top" class="callbacks_container">
+							<ul class="rslides" id="slider5">
+                                {% for m in message %}
+                                <li>
+									<div class="testi-slider">
+										<h4>" {{ m.content }} "</h4>
+{#										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu magna dolor, quisque semper.</p>#}
+										<div class="testi-subscript">
+											<p><a>{{ m.name }}</a></p>
+											<span class="w3-agilesub"> </span>
+										</div>
+									</div>
+								</li>
+                                {% endfor %}
+							</ul>
+						</div>
+					</div>
+                    <!--//最近评价-->
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //about -->
+{% endblock %}

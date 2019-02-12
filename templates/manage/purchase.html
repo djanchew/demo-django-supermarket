@@ -1,0 +1,545 @@
+{% extends 'manage/base/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+    <div class="container-fluid" style="font-size: 18px">
+                <div class="row">
+                    <div class="col-md-2" {% if is_edit == 1 %}style="display: none" {% endif %}>
+                        <div class="list-group">
+                            <a  class="list-group-item" style="text-align: center">进货操作</a>
+                            <a class="list-group-item active" id="new_in" style="cursor: pointer;">进新货</a>
+                            <a class="list-group-item" id="supplement" style="cursor: pointer;">补库存</a>
+                            <a class="list-group-item" id="withdraw" style="cursor: pointer;">退货</a>
+                        </div>
+                    </div>
+                    <!-- new_in -->
+                    <div class="col-md-10" id="new_in_card">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <span>{% if is_edit == 1 %}商品信息修改 {% else %} 进新货{% endif %}</span>
+                            </div>
+                <!-- form with image -->
+                <form id="purchase_form" action="{% if is_edit == 1 %}/good_edit/{% else %}/purchase/{% endif %}" method="post" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="row mb-5">
+                                    <div class="col-md-4 mb-4">
+                                        <div>商品信息<input value="{{ eg.id }}" name="id" style="display: none"></div>
+                                        <div class="text-muted small">填写商品基本信息</div>
+                                        <div class="col-md-6" style="text-align: center; margin: 0 auto">
+                                            <div class="form-group" style="width: 150px">
+                                                <label class="form-control-label">&nbsp;</label>
+                                                <div class="snipcart-thumb">
+                                                    <img class="show_img" src="../../../static/media/goods_img/{% if is_edit == 1 %}{{ eg.sort }}_{{ eg.id }}.png{% else %}default.jpg{% endif %}" />
+                                                    <input type="file" accept="image/*" id='image_input' class="form-control" name="good_image" onchange="img_upload(this)" style="opacity: 0; display: none;">
+                                                    <label for="image_input" class='btn btn-outline-primary' style="margin-top: 15px">选择图片</label>
+                                                </div>
+                                                {% if is_edit == 1 %}<label class="btn btn-outline-secondary" onclick="$(this).siblings('div').find('img').siblings().remove();$(this).hide();">X 不修改</label>{% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">名称</label>
+                                                    <input class="form-control input_check" name="good_name" placeholder="输入商品名称" value="{{ eg.name }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">类别</label>
+                                                    <select class="form-control select_check" name="good_sort">
+                                                        <option disabled selected style="color: #999999;">---选择商品类别---</option>
+                                                        <option value="0" {% if eg.sort == 0 %} selected="selected" {% endif %}>零食饮料</option>
+                                                        <option value="1" {% if eg.sort == 1 %} selected="selected" {% endif %}>生鲜果蔬</option>
+                                                        <option value="2" {% if eg.sort == 2 %} selected="selected" {% endif %}>粮油副食</option>
+                                                        <option value="3" {% if eg.sort == 3 %} selected="selected" {% endif %}>清洁用品</option>
+                                                        <option value="4" {% if eg.sort == 4 %} selected="selected" {% endif %}>家居家电</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">进货价</label>
+                                                    <input type="text" class="form-control input_check"  name="good_cost_price" placeholder="输入进货价" value="{{ eg.cost_price }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">售价</label>
+                                                    <input type="text" class="form-control input_check"  name="good_sale_price" placeholder="输入售价" value="{{ eg.sale_price }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">重量</label>
+                                                    <input type="text" class="form-control input_check"  name="good_weight" placeholder="输入重量" value="{{ eg.weight }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">生产日期</label>
+                                                    <input type="date" class="form-control input_check"  name="good_produce_date" value="{{ eg.produce_date|safe }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">过期时间</label>
+                                                    <input type="date" class="form-control input_check"  name="good_limit_date" value="{{ eg.limit_date|safe }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row mt-5">
+                                    <div class="col-md-4 mb-4">
+                                        <div>供应信息</div>
+                                        <div class="text-muted small">填写供应相关信息</div>
+                                    </div>
+
+                                    {% if is_edit == 1 %}
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="z-index: 1 ">
+                                                    <label class="form-control-label">供应商</label>
+                                                    <select class="form-control select_check" name="good_provider">
+                                                        <option disabled selected style="color: #999999;">---选择供应商---</option>
+                                                        {% for p in p %}
+
+                                                        <option value="{{ p.id }}" {% if eg.provider_id == p.id %}selected="selected"{% endif %}>{{ p.name }}</option>
+                                                        {% endfor %}
+
+                                                        <option value="" id="other_option">---添加新的供应商---</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                 {% else %}
+
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">数量</label>
+                                                    <input type="number" class="form-control input_check" name="good_num" placeholder="填写进货数量">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group" style="text-align: center">
+                                                    <label class="form-control-label" style="display: block">&nbsp;</label>
+                                                    <label class="form-control-label">X</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">件</label>
+                                                    <input type="number" class="form-control input_check" value="1"  name="good_piece" placeholder="填写件数">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">进货超市</label>
+                                                    <select class="form-control select_check"  name="good_location">
+                                                        <option disabled selected style="color: #999999;">---选择进货超市---</option>
+                                                        <option value="1">一饭</option>
+                                                        <option value="2">三饭</option>
+                                                        <option value="4">东区</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="z-index: 1 ">
+                                                    <label class="form-control-label">供应商</label>
+                                                    <select class="form-control select_check" name="good_provider">
+                                                        <option disabled selected style="color: #999999;">---选择供应商---</option>
+                                                        {% for p in providers %}
+
+                                                        <option value="{{ p.id }}" {% if good.provider_id == p.id %}selected="selected"{% endif %}>{{ p.name }}</option>
+                                                        {% endfor %}
+
+                                                        <option value="" id="other_option">---添加新的供应商---</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                </div>
+
+                            </div>
+                </form>
+                <!-- //form with image -->
+                            <div class="card-footer bg-light text-right">
+                                {% if is_edit == 1 %}
+                                    <button type="submit" class="btn btn-warning" onclick="javascript:history.back(-1);"><i class="fa fa-undo"></i>  取消</button>
+                                    <button type="submit" class="btn btn-primary" onclick="save_edit()"><i class="fa fa-check"></i>  保存</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-primary" onclick="save_purchase()">保存</button>
+                                {% endif %}
+                                <!-- 不用找js了，这里有图片，暂时用form的enctype，不知道怎么用js传图片 -->
+                                <!-- 移动到form外面？？ -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //new_in -->
+                    <!-- supplement -->
+                    <div class="col-md-10" style="display:none;" id="supplement_card">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <span>补库存</span>
+                                <select class="id_selector" onchange="id_select()">
+                                    {% for g in goods %}
+                                            <option>{{ g.id }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="card-body">
+<div class="s_w_card">
+                <form action="/purchase/" method="post" enctype="multipart/form-data">
+                                <div class="row mb-5">
+                                    <div class="col-md-4 mb-4">
+                                        <div>确认商品信息</div>
+                                        <div class="text-muted small">确认商品基本信息</div>
+                                        <div class="col-md-6" style="text-align: center; margin: 0 auto">
+                                            <div class="form-group">
+                                                <label class="form-control-label">&nbsp;</label>
+                                                <div class="snipcart-thumb">
+                                                    <img class="show_img" src="../../../static/media/goods_img/{{ good.sort }}_{{ good.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">名称</label>
+                                                    <input class="form-control" name="good_name" placeholder="输入商品名称" value="{{ good.name }}" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">类别</label>
+                                                    <input class="form-control" name="good_name" placeholder="输入商品名称" value="{{ good.sort|safe|get_simple_sort }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">进货价</label>
+                                                    <input type="text" class="form-control"  name="good_cost_price" placeholder="输入进货价" value="{{ good.cost_price }}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">售价</label>
+                                                    <input type="text" class="form-control"  name="good_sale_price" placeholder="输入售价" value="{{ good.sale_price }}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">重量</label>
+                                                    <input type="text" class="form-control"  name="good_weight" placeholder="输入重量" value="{{ good.weight }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">生产日期</label>
+                                                    <input type="text" class="form-control"  name="good_produce_year" placeholder="例:2019" value="{{ good.produce_date }}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">过期时间</label>
+                                                    <input type="text" class="form-control"  name="good_limit_year" placeholder="例:2019" value="{{ good.limit_date }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                </form>
+</div>
+                                <div class="provider_div">
+                                <div class="row mt-5 provider_info">
+                                    <div class="col-md-4 mb-4">
+                                        <div>确认供货信息</div>
+                                        <div class="text-muted small">确认库存操作信息</div>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">数量</label>
+                                                    <input type="number" class="form-control input_check" name="good_num" placeholder="填写进货数量">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group" style="text-align: center">
+                                                    <label class="form-control-label" style="display: block">&nbsp;</label>
+                                                    <label class="form-control-label">X</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">件</label>
+                                                    <input type="number" class="form-control input_check" value="1"  name="good_piece" placeholder="填写件数">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">超市</label>
+                                                    <select class="form-control select_check"  name="good_location">
+                                                        <option disabled selected style="color: #999999;">---选择超市---</option>
+                                                        <option value="1">一饭</option>
+                                                        <option value="2">三饭</option>
+                                                        <option value="4">东区</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group" style="z-index: 1 ">
+                                                    <label class="form-control-label">供应商</label>
+                                                    <input type="text" class="form-control" value="{{ good.provider.name }}" readonly>
+
+{#                                                    <select class="form-control select_check" name="good_provider">#}
+{#                                                        <option disabled selected style="color: #999999;">---选择供应商---</option>#}
+{#                                                        {% for p in providers %}#}
+{##}
+{#                                                        <option value="{{ p.id }}" {% if good.provider_id == p.id %}selected="selected"{% endif %}>{{ p.name }}</option>#}
+{#                                                        {% endfor %}#}
+{##}
+{#                                                        <option value="" id="other_option">---添加新的供应商---</option>#}
+{#                                                    </select>#}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    </div>
+                            </div>
+
+                            <div class="card-footer bg-light text-right">
+                                <button type="submit" class="btn btn-success" id="supplement_save" onclick="s_get_ajax()">确认</button>
+                                <button type="submit" class="btn btn-danger" id="withdraw_save" onclick="w_get_ajax()" style="display: none;">退货</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //supplement -->
+                </div>
+            </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="../../../static/manage/js/jquery.form.js"></script>
+    <script>
+        $('#new_in').on('click', function () {
+            $(this).attr('class', 'list-group-item active');
+            $('#supplement').attr('class', 'list-group-item');
+            $('#withdraw').attr('class', 'list-group-item');
+            {#$('#withdraw_card').css('display', 'none');#}
+            $('#new_in_card').css('display', '');
+            $('#supplement_card').css('display', 'none');
+            history.pushState(null, null, '/purchase')
+
+        });
+
+        $('#supplement').on('click', function () {
+            $(this).attr('class', 'list-group-item active');
+            $('#new_in').attr('class', 'list-group-item');
+            $('#withdraw').attr('class', 'list-group-item');
+            $('#new_in_card').css('display', 'none');
+            $('#supplement_card').css('display', '');
+
+            $('#withdraw_save').hide();
+            $('#supplement_save').show();
+            $('.provider_info').show();
+            {#history.pushState(null, null, '/purchase?id=')#}
+        });
+        $('#withdraw').on('click', function () {
+            $(this).attr('class', 'list-group-item active');
+            $('#supplement').attr('class', 'list-group-item');
+            $('#new_in').attr('class', 'list-group-item');
+            $('#new_in_card').css('display', 'none');
+            {#$('#withdraw_card').css('display', '');#}
+            $('#supplement_card').css('display', '');
+
+            $('#withdraw_save').show();
+            $('#supplement_save').hide();
+            $('.provider_info').hide();
+            {#history.pushState(null, null, '/purchase?id=')#}
+        });
+
+        function save_purchase() {
+            $('#purchase_form').ajaxSubmit({
+                        success: function (data) {
+                            alert(data);
+                        },
+                        error: function (data) {
+                            {#console.log("inside else");#}
+                            alert('数据异常，请检查输入的内容');
+                        }
+                    });
+        }
+        $('#good_image').click(function () {
+            alert('no!')
+        });
+
+        function getObjectURL(file) {
+        var url = null ;
+        // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+            console.log('-----1-----');
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+            console.log('-----2-----');
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+            console.log('-----3-----');
+        }
+
+        return url ;
+    }
+        function img_upload(obj){
+            //console.log(obj.files[0]);//这里可以获取上传文件的name
+            var newsrc=getObjectURL(obj.files[0]);
+            console.log(newsrc);
+            document.getElementsByClassName('.show_img').src=newsrc;
+            $(".show_img").attr("src",newsrc);
+        }
+
+        function getUrlId() {
+            if(location.href.indexOf("?") != -1){
+                url = location.href.split("?")[1];
+                the_id = location.href.split("=")[1];
+                {#console.log(the_id);#}
+                return the_id;
+            }
+            else {
+                return null
+            }
+        }
+        {#console.log(getUrlId());#}
+        $('.id_selector').val(getUrlId());
+        function id_select () {
+            {#console.log($(this).val());#}
+            if(location.href.indexOf("?") != -1){
+                url = location.href.split("?")[0];
+                {#console.log(url);#}
+                if ($('.id_selector').val() != null) {
+                    history.pushState(null, null, url+ '?id='+$('.id_selector').val());// 修改浏览器的url，使得刷新不会跳回取  //莫名失效
+                    if ($('#withdraw').attr('class') ===  'list-group-item active'){
+                        $('.s_w_card').load(url+ '?id='+$('.id_selector').val()+' .s_w_card').fadeIn();
+                    }
+                    else {
+                        $('.s_w_card').load(url+ '?id='+$('.id_selector').val()+' .s_w_card').fadeIn();
+                        $('.provider_div').load(url+ '?id='+$('.id_selector').val()+' .provider_div').fadeIn();
+                    }
+                }
+            }
+            else {
+                history.pushState(null, null, location.href+ '?id='+$('.id_selector').val());
+            }
+        }
+
+        //确认进货supplement，跳到记录查询。
+        function s_get_ajax() {
+            {#alert("s_get_ajax");#}
+            good_num = $('.provider_info').find('input[name="good_num"]').val();
+            good_piece = $('.provider_info').find('input[name="good_piece"]').val();
+            good_location = $('.provider_info').find('select[name="good_location"]').val();
+            good_id = $('.id_selector').val();
+            if (good_num == null || good_piece == null || good_location == null || good_id == null ) {
+                $('.input_check').blur();
+                $('.select_check').blur();
+                alert("请检查输入内容！")
+            }
+            else {
+                var data = {
+                    id: parseInt(good_id),
+                    purchase_num: good_num*good_piece,
+                    location: parseInt(good_location),
+                };
+                console.log(data);
+                $.post('/purchase_supplement/', data, function (text, status) {
+                    alert(text);
+                    if(text==="ok"){
+                        console.log("okok");
+                        {#window.location.href="/account_all";#}
+                        //定到记录页面
+                    }
+                    else{
+                        console.log("nono");
+                    }
+        });
+            }
+        }
+
+        //确认退货withdraw
+        function w_get_ajax() {
+            if(confirm("确定下架并退货吗？")){
+                $.post('/good_remove/', {id: parseInt($('.id_selector').val())}, function (text, status) {
+                    alert(text);
+                    if(text==="ok"){
+                        console.log("okok");
+                        {#window.location.href="/account_all";#}
+                        //定到记录页面
+                    }
+                    else{
+                        console.log("nono");
+                    }
+                });
+            }
+        }
+        function save_edit() {
+            if($('#purchase_form').find('input').val().length === 0 || $('#purchase_form').find('select').val() === null){
+                alert("不要留空");
+            }
+            else{
+                    $('#purchase_form').ajaxSubmit({
+                        success: function (data) {
+                            alert(data);
+                            history.back(-1);location.reload();
+                        },
+                        error: function (data) {
+                            {#console.log("inside else");#}
+                            alert('数据异常，请检查输入的内容');
+                        }
+                    });
+                }
+        }
+        {% if is_supplement == 1 %}
+        $('#supplement').click();
+        {% endif %}
+    </script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'manage/base/base.html' %}
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            供应商(<span id="p_count"></span>)
+                            <div class="input-group">
+                                <input type="text" id="s_key" name="input1-group2" class="form-control" placeholder="输入关键字">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" id="search"><i class="fa fa-search"></i> </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover count_p">
+                                    <thead>
+                                    <tr id="thead">
+                                        <th>操作</th>
+                                        <th>姓名</th>
+                                        <th>地址</th>
+                                        <th>联系方式</th>
+                                        <th>商品</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for p in provider %}
+                                    <tr id="p_tr">
+                                        <td style="text-align: center">
+                                            <button style="width: 45%" class="btn btn-outline-success mod_pro" id="{{ p.id }}"><i class="icon icon-note"></i> 修改</button>
+                                            <button style="width: 45%" class="btn btn-outline-danger del_pro" id="{{ p.id }}"><i class="fa fa-trash-alt"></i> 删除</button>
+                                            <button style="width: 45%;display: none;" class="btn btn-warning mod_cancel" id="{{ p.id }}"><i class="fa fa-undo"></i> 取消</button>
+                                            <button style="width: 45%;display: none;" class="btn btn-primary mod_confirm" id="{{ p.id }}"><i class="fa fa-check"></i> 确定</button>
+                                        </td>
+                                        <td id="mod_p_name">{{ p.name }}</td>
+                                        <td id="mod_p_address" class="text-nowrap">{{ p.address }}</td>
+                                        <td id="mod_p_phone">{{ p.phone }}</td>
+                                        <td id="none"><a href="{% url 'goods_manage' %}?p_id={{ p.id }}" >点击查看</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr id="thead add_input">
+                                        <td style="text-align: center">  </td>
+                                        <td><input class="form-control" type="text" id="add_p_name"></td>
+                                        <td><input class="form-control" type="text" id="add_p_address"></td>
+                                        <td><input class="form-control" type="text" id="add_p_phone"></td>
+                                        <td style="text-align: center">
+                                            <button style="width: 94%" class="btn btn-outline-primary add_pro"><i class="fa fa-plus"></i> 添加</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+{% endblock %}

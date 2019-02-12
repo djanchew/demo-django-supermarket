@@ -1,0 +1,42 @@
+{% extends 'manage/base/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="row p-5">
+                                    <div class="col-md-6">
+                                        <img src="../../../static/manage/demo/imgs/user.png">
+                                    </div>
+
+                                    <div class="col-md-6 text-right">
+                                        <p class="font-weight-bold mb-1">{{ c.name }} {% get_gender c 1 %}</p>
+                                        <p class="text-muted">{{ c|get_authority }}</p>
+                                    </div>
+                                </div>
+
+                                <hr class="my-2">
+
+                                <div class="row pb-5 p-5">
+                                    <div class="col-md-12">
+                                        <form action="/send_note/" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <input type="text" name="Name" style="display: none" value="{{ c.name }}">
+                                                <input type="text" name="Contact" style="display: none" value="{{ c.phone }}">
+                                                <label for="textarea">输入内容</label>
+                                                <textarea id="textarea" name="Message" class="form-control message" rows="6" style="margin-top: 0px; margin-bottom: 0px; height: 179px;"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-block btn-primary" onclick="if ($('.message').val().length === 0) {alert('请输入内容');return false;}else{alert('ok')}">提  交</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+.letter-space{
+	letter-spacing: 20px;
+}
+.navbar-nav li a{
+	padding: 15px 30px;
+	margin-left: 10px;
+}
+body{
+	cursor: default;
+}
+.b_margin{
+	margin-bottom: 20px;
+}
+.show_img{
+	width: 150px;
+	height: 150px;
+}
+
+.show_detail_img{
+	width: 300px;
+	height: 300px;
+}

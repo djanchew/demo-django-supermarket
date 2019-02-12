@@ -1,0 +1,243 @@
+{% extends 'manage/base/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+    <div class="row mt-1">
+        <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                                当前超市：<span class="loc" id="{{ loc }}">{{ loc|get_simple_location }}</span>
+                            <div class="w3l_search float-right">
+                                <form autocomplete="off">
+                                    <a id="sale_complete" class="btn btn-success" style="color:#fff;Float:left;height:35px;margin-right: 50px" aria-label="Left Align">
+                                        <i class="fa fa-check" aria-hidden="true"> </i>  结算
+                                    </a>
+                                    <input id="key_input" type="search" name="Search" style="Float:left;height:35px;font-size: 16px" placeholder="输入商品id" onkeydown="if(event.keyCode==13){$('#key_add').click();return false;}">
+                                    <a id="key_add" class="btn btn-primary" style="Float:left;height:35px" aria-label="Left Align">
+                                        <i class="fa fa-plus" style="color:#fff;" aria-hidden="true"> </i>
+                                    </a>
+                                    <div class="clearfix"></div>
+                                </form>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive" style="height: 680px;overflow-y: auto;">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="thead">
+                                        <th></th>
+                                        <th>ID</th>
+                                        <th>名称</th>
+                                        <th>售价（降价后）</th>
+                                        <th>个数</th>
+                                        <th>总价：<span id="price_all">0</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    </div>
+    <div class="make_change">
+        <img src="../../static/home/images/close_1.png" onclick="close_change()">
+        <div>
+            <lable>应收：</lable><span id="price_all_again">0</span>
+        </div>
+        <div>
+            <form autocomplete="off"><label>实收：</label>
+                <input id="money_input" type="text" style="height:35px;font-size: 16px" onkeydown="if(event.keyCode==13){$('#key_add').click();return false;}">
+                <a id="price_allin" class="btn btn-outline-secondary" style="height:35px" aria-label="Left Align">
+                    全款
+                </a>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+        <div>
+            <label>找零：</label><span id="the_change">0</span>
+        </div>
+        <button class="btn btn-secondary mc_check">确定</button>
+    </div>
+
+{% endblock %}
+{% block js %}
+<script>
+function count_all() {
+    {#console.log($(obj).parent().siblings('#price').attr('name'));#}
+    {#console.log($('.table tr').find('#price'));#}
+    var add_up = 0;
+    $('.table tr').find('#price').each(function () {
+        add_up += parseFloat($(this).text())
+    });
+    $('#price_all').text(add_up.toFixed(2));
+}
+$('#key_add').click(function(){
+    if($('#key_input').val() != ''){
+
+    $.ajax({
+        url:"/sale/",
+        type:"post",
+        dataType: "json",
+        data: { key: $('#key_input').val(),
+                loc: $('.loc').attr('id'),
+        },
+        success: function(data){
+            {#console.log(data);#}
+            if (data.length === 0){
+                alert('查询结果为空')
+            }
+            else {
+                var obj=eval(data);
+                var flag = 1;
+                $(".table").find('tr').each(function () {
+                    if (parseInt($(this).attr('id'))===obj[0].pk){
+                        console.log(obj[0].pk);
+                        flag = 0;
+                        $(this).find('#num_input').find('input').val(parseInt($(this).find('#num_input').find('input').val())+1);
+                        count_raw($(this).find('#num_input').find('input'));
+                        return false;
+                    }
+                });
+                {#console.log($(".table").find('tr'));#}
+                {#console.log(data);#}
+                {#console.log(obj);#}
+                if (flag === 1){
+                    $(".table").append('<tr id="'+ obj[0].pk +'"><td><button class="btn btn-rounded btn-outline-danger" onclick="sale_remove(this)">X</button></td><td>'
+                        + obj[0].pk + '</td>'
+                        + '<td>'+ obj[0].fields.name + '</td>'
+                        +'<td id="price" name="'+(obj[0].fields.sale_price - obj[0].fields.lower)+'">'+ (obj[0].fields.sale_price - obj[0].fields.lower) + '</td>'
+                        +'<td id="num_input"><input type="number" id="sale_num" value="1" onclick="count_raw(this)" name="'+obj[1].storage+'" onkeyup="count_raw(this)" onkeypress="count_raw(this)"></td>'
+                        +'<td id="num_adjust"><input id="range_input" type="range" value="1" min="1" max="'+obj[1].storage+'" onmousemove="range_input(this)"></td>'
+                        +'</tr>');
+                    }
+
+                count_all();
+            }
+
+        },
+        error:function () {
+            alert('查无此商品')
+        }
+    });
+    }
+    $('#key_input').val('');
+    count_all();
+});
+function sale_remove(obj) {
+    {#console.log($(this).parent().parent());#}
+   $(obj).parent().parent().remove();
+   count_all();
+}
+
+function count_raw(obj) {
+    {#console.log($(obj).parent().siblings('#price').attr('name'));#}
+    //控制最小输入
+    if($(obj).val() <= 0){
+        $(obj).val(1);
+    }
+    //控制最大输入
+    var max_num = parseFloat($(obj).attr('name'));
+    if($(obj).val() > max_num){
+        $(obj).val(max_num);
+    }
+    {#console.log($("input[id='range_input']").val());#}
+    //获取单价
+    var p = $(obj).parent().siblings('#price').attr('name');
+    //改变价格
+    $(obj).parent().siblings('#price').text((p*$(obj).val()).toFixed(2));
+    //改变滑动条的值
+    $(obj).parent().siblings('#num_adjust').find('input').val($(obj).val());
+    //计算总价
+    count_all();
+}
+function range_input(obj) {
+    //改变输入框的数量值
+    $(obj).parent().siblings('#num_input').find('input').val($(obj).val());
+
+    {#$("input[id='sale_num']").val($("input[id='range_input']").val());#}
+    {#$(this).parent().siblings('#num_td').find('input #sale_num').val($(this).val());#}
+
+    // 计算总价(让输入框计算……)
+    count_raw($(obj).parent().siblings('#num_input').find('input'));
+}
+function add_record() {
+    {#console.log($('.table').find('tr:not(".thead")'));#}
+    var arr = [];
+    $('.table').find('tr:not(".thead")').each(function () {
+        {#console.log($(this).attr('id')+$(this).find('#sale_num').val())#}
+        {#console.log($('.loc').attr('id'))#}
+        var temp = {
+            loc: $('.loc').attr('id'),
+            goods_id: $(this).attr('id'),
+            sale_num: $(this).find('#sale_num').val(),
+        };
+        arr.push(temp);
+    });
+    console.log(arr);
+    if (arr.length > 0){
+        // 异步，同时执行
+        $.post('/sale_record/', {data: arr}, function (text, status) {
+          alert(text);
+            if(text==="ok"){
+                console.log(text);
+                {#window.location.reload();#}
+            }
+            else{
+                console.log("nono");
+            }
+        });
+    }
+}
+
+$('#sale_complete').on('click', function () {
+   $('.make_change').fadeIn();
+   $('.make_change').siblings().css('pointer-events', 'none');
+   $('#price_all_again').text($('#price_all').text());
+   $('#the_change').text(0);
+   $('#money_input').val('');
+});
+
+function close_change() {
+    $('.make_change').fadeOut();
+   $('.make_change').siblings().css('pointer-events', '');
+}
+
+$("#price_allin").click(function () {
+    $(this).siblings('input').val($('#price_all_again').text());
+});
+
+$('#money_input').keydown(function (event) {
+    if(event.keyCode === 13) {
+        if(parseFloat($(this).val()) < parseFloat($('#price_all_again').text()) || $('#money_input').val().length === 0){
+            alert('请输入大于或小于应收金额的数额！')
+        }
+        else {
+            var the_change = (parseFloat($(this).val()) - parseFloat($('#price_all_again').text())).toFixed(2);
+            {#console.log(the_change);#}
+            $('#the_change').text(the_change);
+        }
+    }
+});
+
+$('.mc_check').on('click', function () {
+    if(parseFloat($('#money_input').val()) < parseFloat($('#price_all_again').text()) || $('#money_input').val().length === 0){
+            alert('请输入大于或小于应收金额的数额！')
+        }
+        else {
+            var the_change = (parseFloat($('#money_input').val()) - parseFloat($('#price_all_again').text())).toFixed(2);
+            {#console.log(the_change);#}
+            $('#the_change').text(the_change);
+            add_record();
+        }
+
+})
+
+
+
+
+</script>
+{% endblock %}

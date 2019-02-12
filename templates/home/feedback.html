@@ -1,0 +1,42 @@
+{% extends "home/all.html" %}
+
+{% block title %}
+反馈 &amp; 评价
+{% endblock title%}
+
+{% block loc %}
+反馈 &amp; 评价
+{% endblock loc %}
+
+{% block main %}
+<!-- //breadcrumbs -->
+
+<!-- about -->
+<div class="about">
+	<div class="container">
+		<div class=" w3_agileits_contact_grid_right" style="padding-left: 64px" >
+				<h2 class="w3_agile_header">反馈 &amp; 评价</h2>
+
+				<form action="/send_feedback/" method="post">
+                    {% csrf_token %}
+					<span class="input input--ichiro">
+						<input class="input__field input__field--ichiro" type="text" id="input-25" name="Name" placeholder=" " required="">
+						<label class="input__label input__label--ichiro" for="input-25">
+							<span class="input__label-content input__label-content--ichiro">称呼</span>
+						</label>
+					</span>
+					<span class="input input--ichiro">
+						<input class="input__field input__field--ichiro" type="text" id="input-26" name="Contact" placeholder=" " required="">
+						<label class="input__label input__label--ichiro" for="input-26">
+							<span class="input__label-content input__label-content--ichiro">联系方式</span>
+						</label>
+					</span>
+					<textarea name="Message" placeholder="留下您宝贵的意见与建议..." required=""></textarea>
+					<input type="submit" value="提  交" onclick="alert('感谢您的反馈与评价！您可以在关于页面看到所有的消息。')">
+				</form>
+			</div>
+				<div class="clearfix"> </div>
+	</div>
+</div>
+	<!-- //about -->
+{% endblock main%}

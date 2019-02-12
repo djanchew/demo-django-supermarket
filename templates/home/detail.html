@@ -1,0 +1,112 @@
+{% extends "home/all.html" %}
+{% load my_tags %}
+{% block title %}
+-
+    {% if good.sort == 0 %}
+    零食饮料
+    {% elif good.sort == 1 %}
+    生鲜果蔬
+    {% elif good.sort == 2 %}
+    粮油副食
+    {% elif good.sort == 3 %}
+    清洁用品
+    {% elif good.sort == 4 %}
+    家居家电
+    {% endif %}
+{% endblock %}
+
+{% block loc %}
+    {% if good.sort == 0 %}
+    零食饮料
+    {% elif good.sort == 1 %}
+    生鲜果蔬
+    {% elif good.sort == 2 %}
+    粮油副食
+    {% elif good.sort == 3 %}
+    清洁用品
+    {% elif good.sort == 4 %}
+    家居家电
+    {% endif %}
+{% endblock loc %}
+
+{% block main %}
+<div class="products">
+		<div class="container">
+			<div class="agileinfo_single">
+
+				<div class="col-md-4 agileinfo_single_left">
+					<img id="example" src="../../../static/media/goods_img/{{ good.sort }}_{{ good.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'"  class="img-responsive show_detail_img">
+				</div>
+				<div class="col-md-8 agileinfo_single_right">
+				<h2>{{ good.name }}</h2>
+					<div class="w3agile_description">
+                        <br>
+						<h4>详细信息 :</h4>
+						<p>重量：{{ good.weight }} g<br>
+                            销量：{{ good.record_set.all|get_all_sale }}<br>
+                            生产日期：{{ good.produce_date|date:'Y-m-d' }}<br>
+                            剩余保质期：{% get_limit_period good.produce_date good.limit_date %}
+                        </p>
+                        <br>
+                            <h4>所在超市 :</h4>
+                            <p>{% record_get_location good.record_set.all 1 %}
+                            </p>
+					</div>
+					<div class="snipcart-item block">
+						<div class="snipcart-thumb agileinfo_single_right_snipcart">
+							<h4 class="m-sing">零售价：
+                                {% if good.lower > 0 %}
+                                    ￥{% get_cheap_price good.sale_price good.lower %}
+
+                                    <span>￥{{ good.sale_price }}</span>
+                                    {% else %}
+                                    ￥{{ good.sale_price }}
+                                {% endif %}
+                            </h4>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- new -->
+	<div class="newproducts-w3agile">
+		<div class="container">
+			<h3>本周上新</h3>
+				<div class="agile_top_brands_grids">
+                    {% for r in new_list %}
+
+					<div class="col-md-3 top_brand_left-1">
+						<div class="hover14 column">
+							<div class="agile_top_brand_left_grid">
+								<div class="agile_top_brand_left_grid_pos">
+									<img src="../../../static/home/images/offer.png" alt=" " class="img-responsive">
+								</div>
+								<div class="agile_top_brand_left_grid1">
+									<figure>
+										<div class="snipcart-item block">
+											<div class="snipcart-thumb">
+												<a href="/detail?id={{ r.goods.id }}">
+                                                    <img class="show_img" src="../../../static/media/goods_img/{{ r.goods.sort }}_{{ r.goods.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+                                                </a>
+												<p>{{ r.goods.name }}</p>
+                                                <p>{{ r.date|get_sub_date }}</p>
+													<h4>￥ {{ r.goods.sale_price }}</h4>
+											</div>
+										</div>
+									</figure>
+								</div>
+							</div>
+						</div>
+					</div>
+
+                    {% endfor %}
+						<div class="clearfix"> </div>
+				</div>
+		</div>
+	</div>
+<!-- //new -->
+{% endblock %}

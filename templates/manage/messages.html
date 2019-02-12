@@ -1,0 +1,76 @@
+{% extends 'manage/base/base.html' %}
+{% block content %}
+
+<div class="row">
+{% if messages %}
+            {% for m in messages %}
+                <div class="col-md-4" id="{{ m.id }}">
+                    <div class="card">
+                        <div class="card-header{% if is_new == 1 %} bg-primary {% else %} bg-dark {% endif %}text-white">
+                            {{ m.name }}
+                            <div class="card-actions">
+                                {% if is_new == 1 %}
+                                    <button class="btn" id="{{ m.id }}" onclick="is_read(this)">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                {% else %}
+                                <button class="btn b_btn_danger" id="{{ m.id }}" onclick="del_message(this)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="text-center">
+                                <div class="text-muted small">{{ m.time }}</div>
+                            </div>
+                            {{ m.content }}
+                                <div class="text-muted small">联系方式:{{ m.contact }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+{% else %}
+    <div class="col-4">
+    暂无新消息
+    </div>
+{% endif %}
+
+</div>
+
+{% endblock %}
+{% block js %}
+    <script>
+        function is_read(obj) {
+            var m_id = $(obj).attr('id');
+            $.post('/is_read/', {m_id:m_id}, function (text, status) {
+                if(text==="ok"){
+                    $('div[id='+m_id+']').fadeOut();
+                    $(".new_messages").load(location.href + " .new_messages");
+                    $(".new_notifications").load(location.href + " .new_notifications");
+                }
+                else{
+                    console.log("nono");
+                }
+            });
+        }
+
+        function del_message(obj) {
+            if(confirm('确定删除吗')){
+                 var m_id = $(obj).attr('id');
+                $.post('/messages/', {m_id:m_id}, function (text, status) {
+                    if(text==="ok"){
+                        $('div[id='+m_id+']').fadeOut();
+                    }
+                    else{
+                        console.log("nono");
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,26 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404</title>
+    <link rel="stylesheet" href="{%static 'manage/demo/vendor/simple-line-icons/css/simple-line-icons.css'%}">
+    <link rel="stylesheet" href="{%static 'manage/demo/vendor/font-awesome/css/fontawesome-all.min.css'%}">
+    <link rel="stylesheet" href="{%static 'manage/demo/css/styles.css'%}">
+</head>
+<body>
+<div class="page-wrapper flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block">权限不足</span>
+                <div class="display-4 mb-4">如果有特殊需求，请联系超级管理员</div>
+                <a href="#" class="btn btn-dark" onclick="history.back(-1)">返回</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+html {
+	height: 100%;
+	cursor: default;
+}
+
+body {
+	cursor: default;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	height: 100%;
+}
+
+.logo {
+	height: 50px;
+	background-color: black;
+}
+
+h3 {
+	padding-top: 10px;
+	margin: 0px;
+	letter-spacing: 8px;
+}
+
+.side_bar {
+	float: left;
+	height: 100%;
+	width: 250px;
+	background-color: RGB(57, 61, 73);
+	color: white;
+	min-height: 100%;
+}
+
+.side_bar a {
+	display: block;
+	text-decoration: none;
+	color: white;
+	height: 50px;
+	margin: 10px 0 10px 0;
+}
+
+.side_bar a:hover {
+	background-color: RGB(75, 79, 91);
+}
+
+.side_bar a:active {
+	background-color: RGB(45, 49, 61);
+}
+
+.side_bar h4 {
+	padding-top: 15px;
+	margin: 0px;
+}
+.top_bar {
+	background-color: black;
+	color: white;
+	height: 50px;
+}
+.login_state{
+            position: relative;
+            margin-right: 0;
+            margin-top: 0;
+        }
+.contain {
+	
+}
+
+.contain form {
+	margin-top: 20px;
+	float:left;
+	margin-bottom:30px;
+}
+form input{
+	height: 23px;
+}
+
+.content {
+	font-size: 20px;
+	float: left;
+	margin-left: 20px;
+}
+
+table{
+	border-collapse:collapse;
+}
+table td{
+	border-top:solid 2px;
+	border-color: RGB(230, 230, 230);
+	border-collapse:inherit;
+}
+.th {
+	background-color: RGB(200, 200, 200);
+}
+table span{
+	padding:0 20px;
+}
+.btn {
+	background-color: RGB(0, 150, 136);
+	color: white;
+	font-size: 16px;
+	width:100px;
+	border-radius: 10px;
+	height:35px;
+}

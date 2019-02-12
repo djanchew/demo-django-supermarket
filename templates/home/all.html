@@ -1,0 +1,172 @@
+{% extends "home/index.html" %}
+{% load my_tags %}
+{% block title %}
+-
+                    {% if flag == 1 %}
+                        {{ good_list.0.sort|safe|get_simple_sort }}
+                    {% elif flag == 0 %}
+                        搜索
+                    {% else %}
+                        全部商品
+                    {% endif %}
+{% endblock %}
+
+{#可以作为子模板，给分类使用#}
+{#似乎……没必要，在视图返回不同的数据就行了#}
+{% block location %}
+    <div class="breadcrumbs">
+		<div class="container">
+			<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+				<li><a href="{% url 'index' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>首页</a></li>
+				<li class="active">
+				{% block loc %}
+                    {% if flag == 1 %}
+                        {{ good_list.0.sort|safe|get_simple_sort }}
+                    {% elif flag == 0 %}
+                        搜索
+                    {% else %}
+                        全部商品
+                    {% endif %}
+				{% endblock loc %}
+</li>
+			</ol>
+		</div>
+	</div>
+{% endblock location%}
+{% block main %}
+    <div class="products">
+		<div class="container">
+			<div class="col-md-4 products-left">
+				<div class="categories">
+					<h2>推荐</h2>
+					<ul class="cate">
+						<li><a href="#"><h4>热卖</h4></a></li>
+							<ul>
+                                {% for num in hot_keys %}
+								    <li><a href="/detail?id={% get_object_id dict num %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{% get_object_name dict num %}</a> </li>
+                                {% endfor %}
+							</ul>
+						<li><a href="#"><h4>特价</h4></a></li>
+							<ul>
+                                {% for g in cheap_list %}
+								    <li><a href="/detail?id={{ g.id }}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{{ g.name }}</a> </li>
+                                {% endfor %}
+							</ul>
+						<li><a href="#"><h4>新品</h4></a></li>
+							<ul>
+                                {% for r in new_list %}
+								    <li><a href="/detail?id={{ r.goods.id }}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{{ r.goods.name }}</a> </li>
+                                {% endfor %}
+
+							</ul>
+					</ul>
+				</div>
+			</div>
+			    <div class="col-md-8 products-right">
+                <!-- 排序 -->
+{#				<div class="products-right-grid">#}
+{#					<div class="products-right-grids">#}
+{#						<div class="sorting">#}
+{#							<select id="country" onchange="order(this)" class="frm-field required sect">#}
+{#								<option value="default">默认排序</option>#}
+{#								<option value="sale_top">按-销量---降序</option>#}
+{#								<option value="sale_top_reverse">按---销量-升序</option>#}
+{#								<option value="price_top">按-价格---降序</option>#}
+{#								<option value="price_top_reverse">按---价格-升序</option>#}
+{#							</select>#}
+{#						</div>#}
+{#						<div class="sorting-left">#}
+{#							<select id="country1" onchange="change_country(this.value)" class="frm-field required sect">#}
+{#								<option value="null">Item on page 9</option>#}
+{#								<option value="null">Item on page 18</option>#}
+{#								<option value="null">Item on page 32</option>#}
+{#								<option value="null">All</option>#}
+{#							</select>#}
+{#						</div>#}
+{#						<div class="clearfix"> </div>#}
+{#					</div>#}
+{#				</div>#}
+                <!-- //排序 -->
+
+
+{% block goods %}
+一共 {{ len }} 条结果：
+<div class="agile_top_brands_grids">
+        {% if good_list %}
+        {% for good in page_list %}
+					<div class="col-md-4 top_brand_left b_margin">
+						<div class="hover14 column">
+							<div class="agile_top_brand_left_grid">
+                                <!-- 热卖页面等，需要用到右上角标签图片 -->
+								<div class="agile_top_brand_left_grid_pos">
+									<img src="../../../static/home/images/{{ good|get_right_top }}.png" alt=" " class="img-responsive">
+								</div>
+								<div class="agile_top_brand_left_grid1">
+									<figure>
+										<div class="snipcart-item block">
+											<div class="snipcart-thumb">
+												<a href="/detail?id={{ good.id }}">
+                                                    <img class="show_img" src="../../../static/media/goods_img/{{ good.sort }}_{{ good.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+                                                </a>
+                                                        <p>{{ good.name }}</p>
+                                                    <h4>￥ {{ good.sale_price }}</h4>
+{#                                                    <h4> {{ good.sale }} 折扣价<span>原价</span></h4>#}
+											</div>
+										</div>
+									</figure>
+								</div>
+							</div>
+						</div>
+					</div>
+        {% endfor %}
+        {% else %}
+            暂无结果
+        {% endif %}
+						<div class="clearfix"> </div>
+				</div>
+{% endblock goods%}
+
+            <!-- 页码选择菜单 -->
+				<nav class="numbering">
+                        <ul class="pagination paging">
+                        {#如果有上一页#}
+                        {% if page_list.has_previous %}
+                            <li class="previous"><a href="{% if flag >= 0 %}?{{ key }}={{ value }}&{% else %}?{% endif %}page={{ page_list.previous_page_number }}">«</a></li>
+                        {% else %}
+                            <li class="previous disabled"><a>«</a></li>
+                        {% endif %}
+
+                        {#输出页码#}
+                        {% for num in paginator.page_range %}
+                            {% if num == current_page %}
+                                <li class="item active"><a href="{% if flag >= 0 %}?{{ key }}={{ value }}&{% if flag == 2 %}{{ key2 }}={{ value2 }}&{% endif %}{% else %}?{% endif %}page={{ num }}">{{ num }}</a></li>
+                            {% else %}
+                                <li class="item"><a href="{% if flag >= 0 %}?{{ key }}={{ value }}&{% if flag == 2 %}{{ key2 }}={{ value2 }}&{% endif %}{% else %}?{% endif %}page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {#如果有下一页#}
+                        {% if page_list.has_next %}
+                            <li class="next"><a href="{% if flag >= 0 %}?{{ key }}={{ value }}&{% if flag == 2 %}{{ key2 }}={{ value2 }}&{% endif %}{% else %}?{% endif %}page={{ page_list.next_page_number }}">»</a></li>
+                        {% else %}
+                            <li class="previous disabled"><a aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                        {% endif %}
+                    </ul>
+				</nav>
+            <!-- //页码选择菜单 -->
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        //(function () {
+//
+        //    function order(obj) {
+        //        console.log($(obj).val())
+        //   }
+        //});
+    </script>
+{% endblock %}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="../../static/manage/demo/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../../static/manage/demo/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../static/manage/demo/css/styles.css">
+<style type="text/css">
+{#html{#}
+{#    height: 100%;#}
+{#    width: 100%;}#}
+.bg{
+    background-color: black;
+    {#width:100%;#}
+    {#height:100%;#}
+    {#position: relative;#}
+    {#background: url("../../static/manage/login_bg.jpg");#}
+    {#background-size: cover;#}
+    {#z-index:1;#}
+}
+{#.bg:after{#}
+{#    content: "";#}
+{#    width:100%;#}
+{#    height:100%;#}
+{#    position: absolute;#}
+{#    left:0;#}
+{#    top:0;#}
+{#    background: inherit;#}
+{#    filter: blur(15px);#}
+{#    z-index: 2;}#}
+.drag{
+    {#box-shadow: 0 0 30px black;#}
+    {#border-radius: 15px;#}
+    {#z-index:11;#}
+}
+    </style>
+</head>
+<body>
+<div class="bg">
+<div class="page-wrapper flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-4 drag" style="display: none">
+                    <div class="card-header text-center text-uppercase h4 font-weight-light">
+                        后台登录
+                    </div>
+                    <form class="login_form" action="/login/" method="post">
+                        {% csrf_token %}
+                    <div class="card-body py-5">
+                        <div class="form-group">
+                            <label class="form-control-label">账号</label>
+                            <input type="text" class="form-control" name="account" autofocus="autofocus">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">密码</label>
+                            <input type="password" class="form-control" name="pwd">
+                        </div>
+
+{#                        <div class="custom-control custom-checkbox mt-4">#}
+{#                            <input type="checkbox" class="custom-control-input" id="login">#}
+{#                            <label class="custom-control-label" for="login">Check this custom checkbox</label>#}
+{#                        </div>#}
+{#                    </div>#}
+
+                    <div class="card-footer">
+                        <div class=" text-center ">
+                                <button type="submit" class="btn btn-primary px-5">登录</button>
+                        </div>
+                    </div>
+                </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div></div>
+<script src="../../../static/manage/demo/vendor/jquery/jquery.min.js"></script>
+    <script src="../../../static/manage/js/jquery.form.js"></script>
+{#<script src="../static/demo/vendor/popper.js/popper.min.js"></script>#}
+{#<script src="../static/demo/vendor/bootstrap/js/bootstrap.min.js"></script>#}
+{#<script src="../static/demo/vendor/chart.js/chart.min.js"></script>#}
+{#<script src="../static/demo/js/carbon.js"></script>#}
+{#<script src="../static/demo/js/demo.js"></script>#}
+<script>
+$(function () {
+    $('.drag').fadeIn();
+    $(".login_form").ajaxForm(function(data){
+		if(data==="ok"){
+			window.location.href='/view_all'
+		}
+		else {
+		    alert("登录失败！");
+        }
+	});
+});
+
+</script>
+</body>
+</html>

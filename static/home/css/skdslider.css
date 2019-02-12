@@ -1,0 +1,369 @@
+.skdslider{
+	 width:100%;
+	 position: relative;
+	 display: block;
+	 overflow:hidden;
+	 height: 500px;
+}
+
+.skdslider:after {
+    content: '';
+    padding-top: 50%; 
+    display: block;
+}
+
+.skdslider ul.slides{ margin:0; padding:0; list-style-type:none;}
+.skdslider ul.slides li
+{
+   display: none;
+}
+.skdslider ul.slides li img{
+    width: 100%;
+	border:0;
+}
+
+.skdslider ul.slide-navs {
+    bottom: 20px;
+    left: 50%;
+    position: absolute;
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.skdslider ul.slide-navs li {
+    float: left;
+	height:12px;
+	width:12px;
+	margin-right:4px;
+	cursor:pointer;
+}
+.skdslider ul.slide-navs li.current-slide {
+}
+
+.skdslider .slide-desc {
+    left: 0;
+    padding: 20px;
+    position: absolute;
+    bottom: 28%;
+    width: 100%;
+    display: inline-block;
+	text-align:center;
+}
+.skdslider .slide-desc > h3 {
+    color: #ffffff;
+    font-size: 50px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 54%;
+	line-height:65px;
+    margin: 0 auto;
+	font-weight:600;
+    letter-spacing: 2px;
+	text-transform:uppercase;
+}
+
+.skdslider .slide-desc > p {
+    color: #FFFFFF;
+    font-size: 15px;
+    line-height: 28px;
+    margin: 0px auto 20px;
+    width: 65%;
+   
+    padding: 12px;
+}
+.skdslider .slide-desc > a.more {
+    color:#990000;
+	font-size:25px;
+	text-decoration:none;
+}
+.skdslider .slide-desc > a.more:hover {
+text-decoration:underline;
+}
+
+.skdslider a.prev{
+    background: url("../images/") no-repeat scroll 0 0 transparent;
+	width:35px;
+	height:35px;
+	display:block;
+	cursor:pointer;
+	position:absolute;
+	top:55%;
+	left:2%;
+	margin-top:-17px;
+}
+
+.skdslider a.next{
+    background: url("../images/") no-repeat scroll 0 0 transparent;
+	width:35px;
+	height:35px;
+	display:block;
+	cursor:pointer;
+	position:absolute;
+	top:55%;
+	right:2%;
+	margin-top:-17px;
+}
+.skdslider a.prev:hover{
+  
+}
+.skdslider a.next:hover{
+  
+}
+
+.skdslider a.play{
+    background: url("../images/") no-repeat scroll center center transparent;
+	width:35px;
+	height:35px;
+	display:none;
+	cursor:pointer;
+	position:absolute;
+    bottom : 6%;
+    right: 2%;
+	margin-top:-17px;
+}
+
+.skdslider a.pause{
+    background: url(../images/) no-repeat scroll center center transparent;
+    width: 35px;
+    height: 35px;
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    bottom : 6%;
+    right: 2%;
+    margin-top: -17px;
+}
+
+/*-- responsive media queries --*/
+/*Some Responsive CSS */
+@media (max-width: 1440px){
+	.skdslider .slide-desc > p {
+		width: 70%;
+	}
+	.skdslider .slide-desc > h3 {
+		font-size: 38px;
+	}
+	.skdslider .slide-desc {
+		bottom: 42%;
+	}
+	.skdslider {
+		height: 556px;
+	}
+}
+@media (max-width: 1366px){
+	.skdslider {
+		height: 527px;
+	}	
+	.skdslider .slide-desc > h3 {
+		font-size: 36px;
+	}
+	.skdslider .slide-desc > p {
+		width: 75%;
+	}
+	.skdslider .slide-desc {
+		bottom: 41%;
+	}
+}
+@media (max-width: 1280px){
+	.skdslider {
+		height: 493px;
+	}	
+	.skdslider .slide-desc > p {
+		font-size: 14px;
+	}
+	.skdslider .slide-desc {
+    bottom: 27%;
+}
+}
+@media (max-width: 1080px){
+	.skdslider {
+		height: 550px;
+	}
+	.skdslider .slide-desc > p {
+		font-size: 13px;
+		width: 85%;
+	}
+	.skdslider .slide-desc > h3 {
+		font-size: 34px;
+	}
+}
+@media (max-width: 1050px){
+	.skdslider {
+		height:393px;
+	}
+	.skdslider .slide-desc > h3 {
+		font-size: 32px;
+	}
+	.skdslider .slide-desc {
+    bottom: 22%;
+}
+.skdslider .slide-desc > h3 {
+    width: 64%;
+    line-height: 58px;
+}
+}
+@media (max-width: 1024px){
+	.skdslider {
+		height: 393px;
+	}
+	.skdslider .slide-desc > h3 {
+		font-size: 30px;
+	}
+}
+@media (max-width: 991px){
+	.skdslider {
+		height: 330px;
+	}
+	.skdslider .slide-desc {
+		bottom: 22%;
+	}
+	.skdslider .slide-desc > p {
+		line-height: 24px;
+		letter-spacing: 1px;
+	}
+	.skdslider .slide-desc > h3 {
+    line-height: 48px;
+}
+.skdslider ul.slides li img {
+    width: none;
+}
+}
+@media (max-width: 800px){
+	.skdslider .slide-desc > h3 {
+		font-size: 26px;
+	}
+	.skdslider {
+		height: 307px;
+	}
+	.skdslider .slide-desc > p {
+		line-height: 22px;
+		letter-spacing: 0.5px;
+	}
+	.skdslider .slide-desc > p {
+		font-size: 12.5px;
+		width: 90%;
+	}
+}
+@media screen and (max-width:768px) {
+	.skdslider .slide-desc > h3 {
+		font-size: 24px;
+	}
+	.skdslider {
+		height: 295px;
+	}
+	.skdslider .slide-desc > p a.more {
+		font-size:14px;
+	}
+}
+@media screen and (max-width:736px) {	
+	.skdslider {
+		height: 281px;
+	}
+	.skdslider .slide-desc {
+		bottom: 18%;
+	}
+}
+@media screen and (max-width:667px) {	
+	.skdslider {
+		height: 254px;
+	}
+	.skdslider .slide-desc {
+		bottom: 14%;
+	}
+	.skdslider .slide-desc > p {
+		padding: 10px;
+	}
+}
+@media screen and (max-width:640px) {
+	.skdslider {
+		height: 243px;
+	}
+	.skdslider .slide-desc > h3 {
+		width: 100%;
+		font-size: 22px;
+	}	
+	.skdslider .slide-desc > p {
+		padding: 8px;
+	}
+}
+@media screen and (max-width:600px) {
+	.skdslider {
+		height: 229px;
+	}
+	.skdslider .slide-desc > h3 {
+		font-size: 22px;
+		letter-spacing: 2px;
+		width: 100%;
+	}	
+	.skdslider .slide-desc > p {
+		padding: 6px;
+		font-size: 12px;
+	}
+}
+@media (max-width: 568px){
+	.skdslider {
+		height: 216px;
+	}
+	.skdslider .slide-desc > p {
+		line-height: 20px;
+		letter-spacing: 0px;
+	}
+}
+@media (max-width: 480px){
+	.skdslider {
+		height: 181px;
+	}	
+	.skdslider .slide-desc > p {
+		width:93%;
+		padding: 8px;
+	}
+	.skdslider .slide-desc > h3 {
+    line-height: 34px;
+}
+}
+@media (max-width: 414px){	
+	.skdslider {
+		height: 154px;
+	}	
+	.skdslider .slide-desc {
+		bottom: 10%;
+	}
+	.skdslider .slide-desc > h3 {
+		font-size: 18px;
+		width: 100%;
+	}
+	.skdslider .slide-desc > h3 {
+    line-height: 30px;
+}	
+}
+@media (max-width: 384px){	
+	.skdslider {
+		height: 144px;
+	}	
+	.skdslider .slide-desc {
+		bottom: 2%;
+	}
+}
+@media (max-width: 375px){	
+	.skdslider {
+		height: 142px;
+	}	
+	.skdslider .slide-desc {
+		bottom: 1.5%;
+	}
+}
+@media (max-width: 320px){	
+	.skdslider {
+		height: 119px;
+	}	
+	.skdslider .slide-desc {
+		bottom:0%;
+	}
+	.skdslider .slide-desc > h3 {
+    font-size: 14px;
+    width: 100%;
+	 line-height: 26px;
+}
+}

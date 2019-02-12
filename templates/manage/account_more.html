@@ -1,0 +1,98 @@
+{% extends 'manage/base/base.html' %}
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-light">
+{#  判断：如果有账号对象，则显示为修改账号，否则添加#}
+                    {% if id %}
+                        修改账号  id：<span id="parse_id">{{ id }}</span>
+                        <button type="button" class="btn btn-primary float-right b_btn_margin" id="update"><i class="fa fa-check"></i>  确定</button>
+                    {% else %}
+                        添加账号
+                        <button type="button" class="btn btn-primary float-right b_btn_margin" id="confirm"><i class="fa fa-check"></i>  确定</button>
+                    {% endif %}
+                    <button type="button" class="btn btn-outline-warning float-right b_btn_margin" id="cancel"><i class="fa fa-undo"></i>  取消</button>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        {% csrf_token %}
+                        <div class="col-md-4">
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i>&nbsp;账号</span>
+                                </div>
+                                {% if id %}
+                                    <input id="read-only account" class="form-control" value="{{ info.account }}" readonly="">
+                                {% else %}
+                                     <input type="text" class="form-control input_check_ajax" placeholder="输入账号" id="account" value="{{ info.account }}">
+{#                                    <span id="account_exist" style="color: red;font-size: .875rem;">账号已存在</span>#}
+                                {% endif %}
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-key"></i>&nbsp;密码</span>
+                                </div>
+                                <input type="text" class="form-control input_check" placeholder="输入密码" id="pwd" value="{{ info.pwd }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-smile"></i>&nbsp;姓名</span>
+                                </div>
+                                <input type="text" class="form-control input_check" placeholder="输入姓名" id="name" value="{{ info.name }}">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-male"></i><i class="fa fa-female"></i>&nbsp;性别</span>
+                                </div>
+                                <input class="b_select_gender" type="hidden" value="{{ info.gender }}">
+                                <select id="s_gender" class="form-control select_check">
+                                    <option disabled selected style="color: #999999;">---选择性别---</option>
+                                    <option value="1">男</option>
+                                    <option value="0">女</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-phone"></i>&nbsp;手机</span>
+                                </div>
+                                <input type="text" class="form-control input_check" placeholder="输入手机号码" aria-describedby="basic-addon2"  value="{{ info.phone }}" id="phone">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-hashtag"></i>&nbsp;权限</span>
+                                </div>
+                                <input class="b_select_auth" type="hidden" value="{{ info.authority }}">
+                                <select id="s_auth" class="form-control select_check">
+                                    <option disabled selected style="color: #999999;">---选择权限---</option>
+                                    <option value="3">售货员</option>
+                                    <option value="2">采购员</option>
+                                    <option value="1">经理</option>
+                                    <option value="0">超级管理员</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

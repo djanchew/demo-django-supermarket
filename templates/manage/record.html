@@ -1,0 +1,154 @@
+{% extends 'manage/base/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            记录查询({{ len }})
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>时间</th>
+                                        <th>地点</th>
+                                        <th>操作</th>
+                                        <th>数量</th>
+                                        <th>商品</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for r in page_list %}
+                                    <tr>
+{#                                        <td>#}
+{#                                            <span>{{ g.id }}</span>#}
+{#                                            <button class="btn btn-outline-success" style="display: none">修改</button>#}
+{#                                        </td>#}
+                                        <td>{{ r.date }}</td>
+                                        <td>{{ r.location|get_simple_location }}</td>
+                                        <td>{{ r|get_simple_operation }}</td>
+                                        <td>{{ r|get_simple_operation_num }}</td>
+                                        <td><a href="{% url 'goods_manage' %}?g_id={{ r.goods_id }}" >{{ r.goods.name }}</a></td>
+
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+            <!-- 页码选择菜单 -->
+				<nav class="numbering">
+                        <ul class="pagination paging">
+                        {#如果有上一页#}
+                        {% if page_list.has_previous %}
+                            <li class="previous"><a href="{% if flag == 1 %}?p_id={{ p_id }}&{% else %}?{% endif %}page={{ page_list.previous_page_number }}"  class="btn btn-outline-primary btn-rounded">«</a></li>
+{#                        {% else %}#}
+{#                            <li class="previous disabled"><a  class="btn btn-outline-primary btn-rounded">«</a></li>#}
+                        {% endif %}
+
+                        {#输出页码#}
+                        {% for num in paginator.page_range %}
+                            {% if num == current_page %}
+                                <li class="item active"><a class="btn btn-primary btn-rounded" href="{% if flag == 1 %}?p_id={{ p_id }}&{% else %}?{% endif %}page={{ num }}">{{ num }}</a></li>
+                            {% else %}
+                                <li class="item"><a  class="btn btn-outline-primary btn-rounded" href="{% if flag == 1 %}?p_id={{ p_id }}&{% else %}?{% endif %}page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {#如果有下一页#}
+                        {% if page_list.has_next %}
+                            <li class="next"><a class="btn btn-outline-primary btn-rounded" href="{% if flag == 1 %}?p_id={{ p_id }}&{% else %}?{% endif %}page={{ page_list.next_page_number }}">»</a></li>
+{#                        {% else %}#}
+{#                            <li class="previous disabled"><a class="btn btn-outline-primary btn-rounded" aria-label="Next"><span aria-hidden="true">»</span></a></li>#}
+                        {% endif %}
+                    </ul>
+				</nav>
+            <!-- //页码选择菜单 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+    // 控制输入框只能输入整数或者浮点数
+    function CheckInputIntFloat(oInput) {
+        if('' != oInput.value.replace(/\d{1,}\.{0,1}\d{0,}/,'')) {
+            oInput.value = oInput.value.match(/\d{1,}\.{0,1}\d{0,}/) == null ? '' :oInput.value.match(/\d{1,}\.{0,1}\d{0,}/);
+            }
+    }
+    // 输入框回车事件
+    $('.lower_input').keydown(function(e) {
+            {#$(this).siblings().css('display', '');#}
+           if (e.keyCode == 13) {
+                {#console.log($(this).siblings());#}
+                console.log($(this).find('.lower_check'));
+                $(this).find('.lower_check').click();
+           }
+           if (e.keyCode == 27) {
+                {#console.log($(this).siblings());#}
+                console.log($(this).find('.lower_check'));
+                $(this).find('.lower_cancel').click();
+           }
+      });
+    // 回车ajax
+    $('.lower_check').click(function () {
+        var data = {
+            id: $(this).siblings('input').attr('id'),
+            lower: $(this).siblings('input').val(),
+        };
+        console.log(data);
+        $.post('/good_lower/', data, function (text, status) {
+            alert(text);
+            if(text==="ok"){
+                console.log("okok");
+                $('.lower_cancel').click();
+                window.location.reload();
+                {#$(".card-body").load(location.href + " .card-body");#}
+                {#$(".hover_span").load(location.href + " .hover_span");#}
+
+            }
+            else{
+                console.log("nono");
+            }
+        });
+    });
+
+    $('.hover_span').hover(
+        function () {
+            $(this).find('span').hide();
+            $(this).find('button').show();
+        },
+        function () {
+            $(this).find('button').hide();
+            $(this).find('span').show();
+        }
+    );
+    $('.hover_mod').click(function () {
+        console.log('修改按钮-------'+$(this).parent().siblings().find('.lower_input'));
+        $(this).parent().hide();
+        $(this).parent().siblings().show();
+        $(this).parent().siblings().find('input').focus();
+    });
+    $('.lower_cancel').click(function () {
+        $(this).parent().parent().hide();
+        $(this).parent().parent().siblings().show();
+    });
+
+    $('tbody tr').hover(
+        function () {
+            {#console.log($(this).children(":first").children(":first").text());#}
+            $(this).children(":first").children(":first").hide().siblings().show();
+        },
+        function () {
+            $(this).children(":first").children(":first").show().siblings().hide();
+        }
+    );
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends 'manage/base/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+    <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card p-4">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="h4 d-block font-weight-normal mb-2">{{ sale_sum }}</span>
+                                    <span class="font-weight-light">总销量</span>
+                                </div>
+
+                                <div class="h2 text-muted">
+                                    <i class="icon icon-people"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card p-4">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="h4 d-block font-weight-normal mb-2">{{ sale_max_name }}</span>
+                                    <span class="font-weight-light">销量最高</span>
+                                </div>
+
+                                <div class="h2 text-muted">
+                                    <i class="icon icon-arrow-up-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card p-4">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="h4 d-block font-weight-normal mb-2">￥{{ price_sum }}</span>
+                                    <span class="font-weight-light">销售总额</span>
+                                </div>
+
+                                <div class="h2 text-muted">
+                                    <i class="icon icon-note"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card p-4">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="h4 d-block font-weight-normal mb-2">￥{{ income_sum }}</span>
+                                    <span class="font-weight-light">盈利</span>
+                                </div>
+
+                                <div class="h2 text-muted">
+                                    <i class="icon icon-wallet"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                近7天销售情况
+                            </div>
+
+                            <div class="card-body p-0">
+                                <div class="p-4">
+                                    <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                        <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                            <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                                        </div>
+                                        <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                            <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <canvas id="l-chart" width="1246" height="249" class="chartjs-render-monitor" style="display: block; width: 1246px; height: 249px;"></canvas>
+
+                                </div>
+
+                                {% if not loc %}
+                                <div class="justify-content-around mt-4 p-4 bg-light d-flex border-top d-md-down-none" id="percentage">
+                                    <div class="text-center">
+                                        <div class="text-muted small">超市销量占比</div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <div class="text-muted small">一饭</div>
+                                        <div>{{ loc_1 }} ({{ ploc_1 }})</div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <div class="text-muted small">三饭</div>
+                                        <div>{{ loc_2 }} ({{ ploc_2 }})</div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <div class="text-muted small">东区</div>
+                                        <div>{{ loc_4 }} ({{ ploc_4 }})</div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+ $(document).ready(function(){
+  var lineChart = $('canvas[id="l-chart"]');
+
+    if (lineChart.length > 0) {
+        new Chart(lineChart, {
+            type: 'line',
+            data: {
+                labels: {{ date_list|safe }},
+                datasets: [{
+                    data: {{ sale_list }},
+                    backgroundColor: 'rgba(66, 165, 245, 0.5)',
+                    borderColor: '#2196F3',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+});
+
+
+    </script>
+{% endblock %}

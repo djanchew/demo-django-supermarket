@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}超市管理系统{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel='stylesheet' href='../../../static/manage/demo/vendor/simple-line-icons/css/simple-line-icons.css'>
+    <link rel='stylesheet' href='../../../static/manage/demo/vendor/font-awesome/css/fontawesome-all.min.css'>
+    <link rel='stylesheet' href='../../../static/manage/demo/css/styles.css'>
+    {% block css %}
+        <link rel='stylesheet' href='../../../static/manage/css/styles.css'>
+    {% endblock %}
+</head>
+<body class="sidebar-fixed header-fixed">
+<div class="page-wrapper">
+        <nav class="navbar page-header">
+
+
+
+        <a href="#" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
+            <i class="fa fa-bars"></i>
+        </a>
+
+        <a class="navbar-brand" href="#">
+            <span class="navbar-brand b_span">
+                超市管理系统
+            </span>
+        </a>
+
+        <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
+            <i class="fa fa-bars"></i>
+        </a>
+{#            <a href="" class="btn btn-link sidebar-toggle d-md-down-none" id="sidebar_toggle">#}
+{#                <i class="fa fa-bars"></i>#}
+{#            </a>#}
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-md-down-none">
+                    <span class="time" style="font-size: .900rem; color: #fff; margin-right: 20px"></span>
+                </li>
+
+            <div class="new_messages">
+                <li class="nav-item d-md-down-none">
+                    <a href="{% url 'new_messages' %}">
+                        <i class="fa fa-envelope-open"></i>
+                        {% if n_f > 0 %}
+                        <span class="badge badge-pill badge-danger">{{ n_f }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+            </div>
+            <div class="new_notifications">
+                <li class="nav-item d-md-down-none">
+                    <a href="{% url 'new_notifications' %}">
+                        <i class="fa fa-bell"></i>
+                        {% if n_n %}
+                        <span class="badge badge-pill badge-danger">{{ n_n }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+            </div>
+
+
+                    <a class="nav-link" href="{% url 'profile' %}">
+                        <img src="../../../static/manage/demo/imgs/user.png" class="avatar avatar-sm" alt="logo">
+                        <span class="small ml-1 d-md-down-none" style="color: #fff">{{ c.name }}</span>
+                    </a>
+
+{#                <li class="nav-item dropdown">#}
+{#                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                        <img src="../../../static/manage/demo/imgs/user.png" class="avatar avatar-sm" alt="logo">#}
+{#                        <span class="small ml-1 d-md-down-none" style="color: #fff">{{ name }}</span>#}
+{#                    </a>#}
+
+{#                    <div class="dropdown-menu dropdown-menu-right">#}
+{#                        <div class="dropdown-header">账号</div>#}
+{##}
+{#                        <a href="#" class="dropdown-item">#}
+{#                            <i class="fa fa-envelope"></i> 消息#}
+{#                        </a>#}
+{##}
+{#                        <div class="dropdown-header">设置</div>#}
+{##}
+{#                        <a href="#" class="dropdown-item">#}
+{#                            <i class="fa fa-bell"></i> 系统通知#}
+{#                        </a>#}
+{##}
+{#                        <a href="#" class="dropdown-item">#}
+{#                            <i class="fa fa-cog"></i> 设置#}
+{#                        </a>#}
+{##}
+{#                        <a href="{% url 'logout' %}" class="dropdown-item btn-outline-danger">#}
+{#                            <i class="fa fa-power-off"></i>退出登录#}
+{#                        </a>#}
+{#                    </div>#}
+                </li>
+            </ul>
+        </nav>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <span class="nav-title">超市</span>
+
+
+
+                    <li class="nav-item">
+                        <a href="/view_all" class="nav-link">
+                            <i class="icon icon-pie-chart"></i> 概况
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-pencil"></i> 商品管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="{% url 'goods_manage' %}" class="nav-link">
+                                    商品查询
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{% url 'limit' %}" class="nav-link">临期/过期商品</a>
+                            </li>
+
+{#                            <li class="nav-item">#}
+{#                                <a href="#" class="nav-link">#}
+{#                                    <i class="icon ui-icon-blank"></i> 评价查询#}
+{#                                </a>#}
+{#                            </li>#}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-home"></i> 库存管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="{% url 'storage' %}" class="nav-link">库存查询</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'providers' %}" class="nav-link">供应商信息</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'purchase' %}" class="nav-link">进货/退货</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/records" class="nav-link">
+                            <i class="icon icon-clock"></i> 记录查询
+                        </a>
+
+{#                        <ul class="nav-dropdown-items">#}
+{#                            <li class="nav-item">#}
+{#                                <a href="/records" class="nav-link">记录查询</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-graph"></i> 统计数据 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="{% url 'view_all' %}?loc=1" class="nav-link">一饭</a>
+                            </li>
+                        </ul>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="{% url 'view_all' %}?loc=2" class="nav-link">三饭</a>
+                            </li>
+                        </ul>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="{% url 'view_all' %}?loc=4" class="nav-link">东区</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link sale_btn">
+                            <i class="icon icon-screen-desktop"></i> 销售台
+                        </a>
+                    </li>
+
+                    <span class="nav-title">系统</span>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-settings"></i> 系统设置 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="{% url 'account_all' %}" class="nav-link">后台账号管理</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{% url 'account_add' %}" class="nav-link">添加账号</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{% url 'send_note'%}" class="nav-link">发送系统通知</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{% url 'messages'%}" class="nav-link">所有反馈&评价</a>
+                            </li>
+
+                            <li class="nav-item">
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link">
+                            <i class="icon icon-user"></i>  切换账号
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="if(confirm('确定退出吗？')){href='{% url 'logout' %}'}">
+                            <i class="icon icon-power"></i> 退出登录
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="content">
+            {% block content %}
+                base.html
+            {% endblock %}
+        </div>
+    </div>
+<div class="blur_bg">
+    <div class="blur_front">
+        <div class="btn_set">选择超市 &nbsp;
+        <button class="btn btn-success choose_btn" value="1">一饭</button>
+        <button class="btn btn-warning choose_btn" value="2">三饭</button>
+        <button class="btn btn-primary choose_btn" value="4">东区</button>
+         </div>
+    </div>
+</div>
+</div>
+
+
+
+<script src="../../../static/manage/demo/vendor/jquery/jquery.min.js"></script>
+<script src="../../../static/manage/demo/vendor/popper.js/popper.min.js"></script>
+<script src="../../../static/manage/demo/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../static/manage/demo/vendor/chart.js/chart.min.js"></script>
+<script src="../../../static/manage/demo/js/carbon.js"></script>
+<script src="../../../static/manage/demo/js/demo.js"></script>
+        <script src="../../../static/manage/js/b_demo.js"></script>
+        <script src="../../../static/manage/js/time.js"></script>
+    {% block js %}
+    {% endblock %}
+</body>
+</html>

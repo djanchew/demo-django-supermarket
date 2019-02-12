@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>华商超市{% block title %}-首页{% endblock %}</title>
+    {% load staticfiles %}
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="../../../static/home/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../../../static/home/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- font-awesome icons -->
+<link href="../../../static/home/css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<link href="../../../static/home/css/b_css.css" rel="stylesheet">
+<!-- js -->
+<script src="../../../static/home/js/jquery-1.11.1.min.js"></script>
+<!-- //js -->
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="../../../static/home/js/move-top.js"></script>
+<script type="text/javascript" src="../../../static/home/js/easing.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- start-smoth-scrolling -->
+</head>
+
+<body>
+<!-- 顶部logo 搜索框 -->
+	<div class="logo_products">
+		<div class="container">
+		<div class="w3ls_logo_products_left1">
+				<ul class="phone_email">
+					<li><i class="fa fa-phone" aria-hidden="true"></i>客服热线 : +86 15521372271</li>
+				</ul>
+			</div>
+			<div class="w3ls_logo_products_left">
+				<h1 class="letter-space"><a href="/">华商超市</a></h1>
+			</div>
+		<div class="w3l_search">
+			<form action="/all/" method="get">
+				<input type="search" name="Search" placeholder="搜索商品" required="">
+				<button type="submit" class="btn btn-default search" aria-label="Left Align">
+					<i class="fa fa-search" aria-hidden="true"> </i>
+				</button>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+<!-- //header -->
+<!-- 顶部导航菜单 -->
+	<div class="navigation-agileits">
+		<div class="container">
+			<nav class="navbar navbar-default">
+							<!-- Brand and toggle get grouped for better mobile display -->
+							<div class="navbar-header nav_2">
+								<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
+							<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+								<ul class="nav navbar-nav">
+									<li class="active"><a href="/" class="act">首页</a></li>
+									<li><a href="/all">   全部商品   </a></li>
+									<li><a href="/all?sort=0">   零食饮料   </a></li>
+									<li><a href="/all?sort=1">   生鲜果蔬   </a></li>
+									<li><a href="/all?sort=2">   粮油副食   </a></li>
+									<li><a href="/all?sort=3">   清洁用品   </a></li>
+									<li><a href="/all?sort=4">   家居家电   </a></li>
+									<li><a href="/about">   关于   </a></li>
+								</ul>
+							</div>
+							</nav>
+			</div>
+		</div>
+{% block location %}
+{% endblock %}
+<!-- //顶部导航菜单 -->
+{% block main %}
+	<!-- 超市图片切换 -->
+    <div class="skdslider" style="background-color:#000 ">
+		<ul id="demo1">
+			<li>
+				<img src="../../../static/home/images/11.jpg" alt="" />
+				<div class="slide-desc">
+					<h3>优选百货，品质生活</h3>
+				</div>
+			</li>
+			<li>
+				<img src="../../../static/home/images/22.jpg" alt="" />
+				<div class="slide-desc">
+					<h3>优选百货，品质生活</h3>
+				</div>
+			</li>
+
+			<li>
+				<img src="../../../static/home/images/44.jpg" alt="" />
+				<div class="slide-desc">
+					<h3>优选百货，品质生活</h3>
+				</div>
+			</li>
+		</ul>
+    </div>
+	<!-- //超市图片切换 -->
+	<!-- 热卖/特价 -->
+	<div class="top-brands">
+		<div class="container">
+		<h2>本周热卖</h2>
+			<div class="grid_3 grid_5">
+				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+					<ul id="myTab" class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">热卖</a></li>
+						<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">特价</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+                        <!-- Hot -->
+						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
+							<div class="agile_top_brands_grids">
+                            {% load my_tags %}
+                                {% for num in hot_keys %}
+
+								<div class="col-md-4 top_brand_left">
+									<div class="hover14 column" style="margin-bottom:40px ">
+										<div class="agile_top_brand_left_grid">
+											<div class="agile_top_brand_left_grid_pos">
+												<img src="../../../static/home/images/hot.png" alt=" " class="img-responsive" />
+											</div>
+											<div class="agile_top_brand_left_grid1">
+												<figure>
+													<div class="snipcart-item block" >
+														<div class="snipcart-thumb">
+															<a href="/detail?id={% get_object_id dict num %}">
+                                                                <img class="show_img" src="../../../static/media/goods_img/{% get_object_img dict num %}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+                                                            </a>
+															<p>{% get_object_name dict num %}</p>
+                                                            <p>销量：{{ num }}</p>
+															<h4>￥ {% get_object_sale_price dict num %}</h4>
+														</div>
+													</div>
+												</figure>
+											</div>
+										</div>
+									</div>
+								</div>
+
+                                {% endfor %}
+								<div class="clearfix"> </div>
+							</div>
+
+						</div>
+                        <!-- //Hot -->
+
+                        <!-- Cheap -->
+						<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
+							<div class="agile_top_brands_grids">
+
+                                {% for g in cheap_list %}
+
+								<div class="col-md-4 top_brand_left">
+									<div class="hover14 column" style="margin-bottom:40px ">
+										<div class="agile_top_brand_left_grid">
+											<div class="agile_top_brand_left_grid_pos">
+												<img src="../../../static/home/images/cheap.png" alt=" " class="img-responsive" />
+											</div>
+											<div class="agile_top_brand_left_grid1">
+												<figure>
+													<div class="snipcart-item block" >
+														<div class="snipcart-thumb">
+															<a href="/detail?id={{ g.id }}">
+                                                                <img class="show_img" src="../../../static/media/goods_img/{{ g.sort }}_{{ g.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+                                                            </a>
+															<p>{{ g.name }}</p>
+                                                            <p><h4><span>￥ {{ g.sale_price }}</span></h4></p>
+															<h4>￥ {% get_cheap_price g.sale_price g.lower %}</h4>
+														</div>
+													</div>
+												</figure>
+											</div>
+										</div>
+									</div>
+								</div>
+
+                                {% endfor %}
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+                        <!-- //Cheap -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- //热卖/特价 -->
+
+<!--分类图片-->
+    <div class="ban-bottom-w3l">
+        <div class="container">
+        <div class="col-md-6 ban-bottom3">
+                <div class="ban-top">
+                    <img src="../../../static/home/images/p2.jpg" class="img-responsive" alt=""/>
+
+                </div>
+                <div class="ban-img">
+                    <div class=" ban-bottom1">
+                        <div class="ban-top">
+                            <img src="../../../static/home/images/p3.jpg" class="img-responsive" alt=""/>
+
+                        </div>
+                    </div>
+                    <div class="ban-bottom2">
+                        <div class="ban-top">
+                            <img src="../../../static/home/images/p4.jpg" class="img-responsive" alt=""/>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-6 ban-bottom">
+                <div class="ban-top">
+                    <img src="../../../static/home/images/111.jpg" class="img-responsive" alt=""/>
+
+
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+<!--//分类图片-->
+
+<!-- new -->
+	<div class="newproducts-w3agile">
+		<div class="container">
+			<h3>本周上新</h3>
+				<div class="agile_top_brands_grids">
+                    {% for r in new_list %}
+
+					<div class="col-md-3 top_brand_left-1">
+						<div class="hover14 column">
+							<div class="agile_top_brand_left_grid">
+								<div class="agile_top_brand_left_grid_pos">
+									<img src="../../../static/home/images/offer.png" alt=" " class="img-responsive">
+								</div>
+								<div class="agile_top_brand_left_grid1">
+									<figure>
+										<div class="snipcart-item block">
+											<div class="snipcart-thumb">
+												<a href="/detail?id={{ r.goods.id }}">
+                                                    <img class="show_img" src="../../../static/media/goods_img/{{ r.goods.sort }}_{{ r.goods.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+                                                </a>
+												<p>{{ r.goods.name }}</p>
+                                                <p>{{ r.date|get_sub_date }}</p>
+													<h4>￥ {{ r.goods.sale_price }}</h4>
+											</div>
+										</div>
+									</figure>
+								</div>
+							</div>
+						</div>
+					</div>
+
+                    {% endfor %}
+						<div class="clearfix"> </div>
+				</div>
+		</div>
+	</div>
+<!-- //new -->
+{% endblock %}
+<!-- //footer -->
+<div class="footer">
+		<div class="container">
+			<div class="w3_footer_grids">
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Contact</h3>
+
+					<ul class="address">
+						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>广东财经大学华商学院 <span>中国 广东 增城 荔城街</span></li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>1006953367@qq.com</li>
+						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+86 15521372271</li>
+					</ul>
+				</div>
+
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Home</h3>
+					<ul class="info">
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/">超市首页</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-3 w3_footer_grid">
+					<h3>Category</h3>
+					<ul class="info">
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/all">全部商品</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/all?sort=0">零食饮料</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/all?sort=1">生鲜果蔬</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/all?sort=2">粮油副食</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/all?sort=3">清洁用品</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/all?sort=4">家居家电</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 w3_footer_grid">
+					<h3>About</h3>
+					<ul class="info">
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/about">关于</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/feedback">反馈 &amp; 评价</a></li>
+						<li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="/login">管理员</a></li>
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+
+		<div class="footer-copy">
+
+			<div class="container">
+				<p>Copyright &copy; 2019. BreezeFreak All rights reserved.  More information <a href="https://github.com/BreezeFreak" target="_blank" title="GitHub">GitHub</a> - <a href="https://blog.csdn.net/sinat_38153409" title="CSDN" target="_blank">CSDN</a></p>
+			</div>
+
+
+	</div>
+<!-- //footer -->
+<!-- Bootstrap Core JavaScript -->
+<script src="../../../static/home/js/bootstrap.min.js"></script>
+
+<!-- top-header and slider -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+<script src="../../../static/home/js/minicart.min.js"></script>
+<script>
+	// Mini Cart
+	paypal.minicart.render({
+		action: '#'
+	});
+
+	if (~window.location.search.indexOf('reset=true')) {
+		paypal.minicart.reset();
+	}
+</script>
+<!-- main slider-banner -->
+<script src="../../../static/home/js/skdslider.min.js"></script>
+<link href="../../../static/home/css/skdslider.css" rel="stylesheet">
+<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});
+						
+			jQuery('#responsive').change(function(){
+			  $('#responsive_wrapper').width(jQuery(this).val());
+			});
+			
+		});
+</script>	
+<!-- //main slider-banner --> 
+</body>
+</html>

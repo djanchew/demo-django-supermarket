@@ -1,0 +1,110 @@
+{% extends 'manage/base/base.html' %}
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-light">
+                    搜索
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" id="s_key" name="input1-group2" class="form-control" placeholder="输入关键字">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary" id="search"><i class="fa fa-search"></i> </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select id="select_by_auth" class="form-control">
+                                    <option disabled selected style="color: #999999;">---按权限查找---</option>
+                                    <option value="">全部</option>
+                                    <option value="3">售货员</option>
+                                    <option value="2">采购员</option>
+                                    <option value="1">经理</option>
+                                    <option value="0">超级管理员</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select id="select_by_gender" class="form-control">
+                                    <option disabled selected style="color: #999999;">---按性别查找---</option>
+                                    <option value="">全部</option>
+                                    <option value="1">男</option>
+                                    <option value="0">女</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for i in count %}
+        <div class="col-md-6" id="auth_{{ i }}">
+            <div class="card">
+                <div class="card-header bg-light">
+                    {% if i == 0 %}
+                        超级管理员 &nbsp;(<span id="t_0"></span>)
+                    {% elif i == 1 %}
+                        经理 &nbsp;(<span id="t_1"></span>)
+                    {% elif i == 2 %}
+                        采购员 &nbsp;(<span id="t_2"></span>)
+                    {% elif i == 3 %}
+                        售货员 &nbsp;(<span id="t_3"></span>)
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr id="thead">
+                                <th>操作</th>
+                                <th>ID</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>电话</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for s in list %}
+                                    {% if s.authority == i %}
+                                    <tr>
+                                        <td>
+                                            <input class="btn btn-outline-success mod_manager" type="button" value="修改" id="{{ s.id }}">
+                                            <input class="btn btn-outline-danger del_manager" type="button" value="删除" id="{{ s.id }}">
+                                        </td>
+                                        <td>{{ s.id }}</td>
+                                        <td>{{ s.name }}</td>
+                                        <td id="order_flag">
+                                            {% if s.gender == 0 %}
+                                                女
+                                            {% else %}
+                                                男
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ s.phone }}</td>
+                                    </tr>
+                                    {% endif %}
+                                {% empty %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
