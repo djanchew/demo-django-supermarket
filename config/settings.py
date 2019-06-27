@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -26,11 +25,10 @@ SECRET_KEY = '_joao(!w!oc6ktbxr55x4$ioy4$#u6#09cx$st=pp3sj(6lm!)'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*',
-    # '127.0.0.1',
-    # '10.10.10.154',
-    # '120.229.216.9'
-    ]
-
+                 # '127.0.0.1',
+                 # '10.10.10.154',
+                 # '120.229.216.9'
+                 ]
 
 # Application definition
 
@@ -75,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -94,7 +91,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -112,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -133,9 +128,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_PATH = os.path.dirname(os.path.abspath(__file__))
-STATIC_PATH = os.path.join(STATIC_PATH, '../')
-STATICFILES_DIRS = (
-    os.path.join(STATIC_PATH, 'static/'),
-)
-MEDIA_ROOT=os.path.join(BASE_DIR, 'static/media')
+# STATIC_PATH = os.path.dirname(os.path.abspath(__file__))
+# STATIC_PATH = os.path.join(STATIC_PATH, '../')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATICFILES_DIRS = (
+#     os.path.join(STATIC_PATH, 'static/'),
+# )
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
