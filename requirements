@@ -1,0 +1,2 @@
+django==2.2.2
+mysqlclient==1.4.2.post1

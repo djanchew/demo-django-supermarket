@@ -82,11 +82,14 @@ WSGI_APPLICATION = 'S_Web.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'S_test',
-        'HOST': 'localhost',
-        'PORT': 3306,
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'NAME': 'django_demo',
         'USER': 'root',
-        'PASSWORD': '123',
+        'PASSWORD': 'password',
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        }
     }
 }
 
