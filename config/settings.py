@@ -82,9 +82,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        'NAME': 'django_demo',
-        'USER': 'root',
-        'PASSWORD': 'password',
+        'NAME': 'demo_django_supermarket',
+        'USER': 'admin',
+        'PASSWORD': '123456',
         'OPTIONS': {
             'charset': 'utf8mb4'
         }
@@ -128,10 +128,12 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_PATH = os.path.dirname(os.path.abspath(__file__))
-# STATIC_PATH = os.path.join(STATIC_PATH, '../')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-# STATICFILES_DIRS = (
-#     os.path.join(STATIC_PATH, 'static/'),
-# )
+
+STATIC_PATH = os.path.dirname(os.path.abspath(__file__))
+STATIC_PATH = os.path.join(STATIC_PATH, '../')
+
+STATICFILES_DIRS = (
+    os.path.join(STATIC_PATH, 'static/'),
+)
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')

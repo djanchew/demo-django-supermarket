@@ -2,12 +2,6 @@
 celerybeat-schedule
 celerybeat.pid
 
-# static files
-static
-
-# pytest
-.pytest_cache/
-
 .DS_Store
 
 # IDE Files
@@ -71,7 +65,7 @@ target/
 # Vim
 .ropeproject
 
-venv/
+#venv/
 
 *.sqlite3
 

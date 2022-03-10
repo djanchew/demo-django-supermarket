@@ -1,0 +1,10 @@
+- model: app.manager
+  pk: 1
+  fields:
+    account: root
+    pwd: 123456
+    name: admin
+    gender: 0
+    phone: 15512345678
+    authority: 0
+    isDelete: 0
