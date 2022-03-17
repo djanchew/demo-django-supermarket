@@ -1,7 +1,7 @@
 - model: app.manager
   pk: 1
   fields:
-    account: root
+    account: admin
     pwd: 123456
     name: admin
     gender: 0
