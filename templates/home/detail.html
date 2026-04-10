@@ -35,7 +35,7 @@
 			<div class="agileinfo_single">
 
 				<div class="col-md-4 agileinfo_single_left">
-					<img id="example" src="../../../static/media/goods_img/{{ good.sort }}_{{ good.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'"  class="img-responsive show_detail_img">
+					<img id="example" src="{% static 'media/goods_img/' %}{{ good.sort }}_{{ good.id }}.png" onerror="this.src='{% static 'media/goods_img/default.jpg' %}'"  class="img-responsive show_detail_img">
 				</div>
 				<div class="col-md-8 agileinfo_single_right">
 				<h2>{{ good.name }}</h2>
@@ -83,14 +83,14 @@
 						<div class="hover14 column">
 							<div class="agile_top_brand_left_grid">
 								<div class="agile_top_brand_left_grid_pos">
-									<img src="../../../static/home/images/offer.png" alt=" " class="img-responsive">
+									<img src="{% static 'home/images/offer.png' %}" alt=" " class="img-responsive">
 								</div>
 								<div class="agile_top_brand_left_grid1">
 									<figure>
 										<div class="snipcart-item block">
 											<div class="snipcart-thumb">
-												<a href="/detail?id={{ r.goods.id }}">
-                                                    <img class="show_img" src="../../../static/media/goods_img/{{ r.goods.sort }}_{{ r.goods.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+												<a href="/detail/?id={{ r.goods.id }}">
+                                                    <img class="show_img" src="{% static 'media/goods_img/' %}{{ r.goods.sort }}_{{ r.goods.id }}.png" onerror="this.src='{% static 'media/goods_img/default.jpg' %}'">
                                                 </a>
 												<p>{{ r.goods.name }}</p>
                                                 <p>{{ r.date|get_sub_date }}</p>

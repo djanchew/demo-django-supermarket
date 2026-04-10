@@ -41,21 +41,21 @@
 					<h2>推荐</h2>
 					<ul class="cate">
 						<li><a href="#"><h4>热卖</h4></a></li>
-							<ul>
+									<ul>
                                 {% for num in hot_keys %}
-								    <li><a href="/detail?id={% get_object_id dict num %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{% get_object_name dict num %}</a> </li>
+									    <li><a href="/detail/?id={% get_object_id dict num %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{% get_object_name dict num %}</a> </li>
                                 {% endfor %}
-							</ul>
-						<li><a href="#"><h4>特价</h4></a></li>
-							<ul>
+									</ul>
+								<li><a href="#"><h4>特价</h4></a></li>
+									<ul>
                                 {% for g in cheap_list %}
-								    <li><a href="/detail?id={{ g.id }}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{{ g.name }}</a> </li>
+									    <li><a href="/detail/?id={{ g.id }}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{{ g.name }}</a> </li>
                                 {% endfor %}
-							</ul>
-						<li><a href="#"><h4>新品</h4></a></li>
-							<ul>
+									</ul>
+								<li><a href="#"><h4>新品</h4></a></li>
+									<ul>
                                 {% for r in new_list %}
-								    <li><a href="/detail?id={{ r.goods.id }}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{{ r.goods.name }}</a> </li>
+									    <li><a href="/detail/?id={{ r.goods.id }}"><i class="fa fa-arrow-right" aria-hidden="true"></i>{{ r.goods.name }}</a> </li>
                                 {% endfor %}
 
 							</ul>
@@ -99,14 +99,14 @@
 							<div class="agile_top_brand_left_grid">
                                 <!-- 热卖页面等，需要用到右上角标签图片 -->
 								<div class="agile_top_brand_left_grid_pos">
-									<img src="../../../static/home/images/{{ good|get_right_top }}.png" alt=" " class="img-responsive">
+									<img src="{% static 'home/images/' %}{{ good|get_right_top }}.png" alt=" " class="img-responsive">
 								</div>
 								<div class="agile_top_brand_left_grid1">
 									<figure>
 										<div class="snipcart-item block">
 											<div class="snipcart-thumb">
-												<a href="/detail?id={{ good.id }}">
-                                                    <img class="show_img" src="../../../static/media/goods_img/{{ good.sort }}_{{ good.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+												<a href="/detail/?id={{ good.id }}">
+                                                    <img class="show_img" src="{% static 'media/goods_img/' %}{{ good.sort }}_{{ good.id }}.png" onerror="this.src='{% static 'media/goods_img/default.jpg' %}'">
                                                 </a>
                                                         <p>{{ good.name }}</p>
                                                     <h4>￥ {{ good.sale_price }}</h4>

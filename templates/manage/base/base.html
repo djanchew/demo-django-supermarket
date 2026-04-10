@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}超市管理系统{% endblock %}</title>
     {% load staticfiles %}
-    <link rel='stylesheet' href='../../../static/manage/demo/vendor/simple-line-icons/css/simple-line-icons.css'>
-    <link rel='stylesheet' href='../../../static/manage/demo/vendor/font-awesome/css/fontawesome-all.min.css'>
-    <link rel='stylesheet' href='../../../static/manage/demo/css/styles.css'>
+    <link rel='stylesheet' href="{% static 'manage/demo/vendor/simple-line-icons/css/simple-line-icons.css' %}">
+    <link rel='stylesheet' href="{% static 'manage/demo/vendor/font-awesome/css/fontawesome-all.min.css' %}">
+    <link rel='stylesheet' href="{% static 'manage/demo/css/styles.css' %}">
     {% block css %}
-        <link rel='stylesheet' href='../../../static/manage/css/styles.css'>
+        <link rel='stylesheet' href="{% static 'manage/css/styles.css' %}">
     {% endblock %}
 </head>
 <body class="sidebar-fixed header-fixed">
@@ -64,7 +64,7 @@
 
 
                     <a class="nav-link" href="{% url 'profile' %}">
-                        <img src="../../../static/manage/demo/imgs/user.png" class="avatar avatar-sm" alt="logo">
+                        <img src="{% static 'manage/demo/imgs/user.png' %}" class="avatar avatar-sm" alt="logo">
                         <span class="small ml-1 d-md-down-none" style="color: #fff">{{ c.name }}</span>
                     </a>
 
@@ -108,7 +108,7 @@
 
 
                     <li class="nav-item">
-                        <a href="/view_all" class="nav-link">
+                        <a href="/view_all/" class="nav-link">
                             <i class="icon icon-pie-chart"></i> 概况
                         </a>
                     </li>
@@ -156,7 +156,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/records" class="nav-link">
+                        <a href="/records/" class="nav-link">
                             <i class="icon icon-clock"></i> 记录查询
                         </a>
 
@@ -257,14 +257,14 @@
 
 
 
-<script src="../../../static/manage/demo/vendor/jquery/jquery.min.js"></script>
-<script src="../../../static/manage/demo/vendor/popper.js/popper.min.js"></script>
-<script src="../../../static/manage/demo/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../../static/manage/demo/vendor/chart.js/chart.min.js"></script>
-<script src="../../../static/manage/demo/js/carbon.js"></script>
-<script src="../../../static/manage/demo/js/demo.js"></script>
-        <script src="../../../static/manage/js/b_demo.js"></script>
-        <script src="../../../static/manage/js/time.js"></script>
+<script src="{% static 'manage/demo/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'manage/demo/vendor/popper.js/popper.min.js' %}"></script>
+<script src="{% static 'manage/demo/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'manage/demo/vendor/chart.js/chart.min.js' %}"></script>
+<script src="{% static 'manage/demo/js/carbon.js' %}"></script>
+<script src="{% static 'manage/demo/js/demo.js' %}"></script>
+        <script src="{% static 'manage/js/b_demo.js' %}"></script>
+        <script src="{% static 'manage/js/time.js' %}"></script>
     {% block js %}
     {% endblock %}
 </body>
