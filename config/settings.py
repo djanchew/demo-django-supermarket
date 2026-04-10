@@ -124,6 +124,9 @@ USE_TZ = False
 # USE_TZ = True  # 时区
 
 
+# URL Configuration
+APPEND_SLASH = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
