@@ -1,4 +1,5 @@
 {% extends "home/all.html" %}
+{% load static %}
 
 {% block title %}
 反馈 &amp; 评价
@@ -17,7 +18,7 @@
 		<div class=" w3_agileits_contact_grid_right" style="padding-left: 64px" >
 				<h2 class="w3_agile_header">反馈 &amp; 评价</h2>
 
-				<form action="/send_feedback/" method="post">
+				<form action="{% url 'send_feedback' %}" method="post">
                     {% csrf_token %}
 					<span class="input input--ichiro">
 						<input class="input__field input__field--ichiro" type="text" id="input-25" name="Name" placeholder=" " required="">

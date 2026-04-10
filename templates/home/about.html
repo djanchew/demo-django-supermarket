@@ -1,4 +1,5 @@
 {% extends "home/all.html" %}
+{% load static %}
 
 {% block title %}
 -关于
@@ -54,9 +55,9 @@
 					</div>
                     <!--最近评价-->
 					<div class="testi">
-						<a href="/feedback"> <h3 class="w3_agile_header">反馈 &amp; 评价</h3></a>
+						<a href="{% url 'feedback' %}"> <h3 class="w3_agile_header">反馈 &amp; 评价</h3></a>
 						<!--//End-slider-script -->
-						<script src="../../../static/home/js/responsiveslides.min.js"></script>
+						<script src="{% static 'home/js/responsiveslides.min.js' %}"></script>
 						 <script>
 							// You can also use "$(window).load(function() {"
 							$(function () {
@@ -83,7 +84,6 @@
                                 <li>
 									<div class="testi-slider">
 										<h4>" {{ m.content }} "</h4>
-{#										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu magna dolor, quisque semper.</p>#}
 										<div class="testi-subscript">
 											<p><a>{{ m.name }}</a></p>
 											<span class="w3-agilesub"> </span>

@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}超市管理系统{% endblock %}</title>
-    {% load staticfiles %}
-    <link rel='stylesheet' href='../../../static/manage/demo/vendor/simple-line-icons/css/simple-line-icons.css'>
-    <link rel='stylesheet' href='../../../static/manage/demo/vendor/font-awesome/css/fontawesome-all.min.css'>
-    <link rel='stylesheet' href='../../../static/manage/demo/css/styles.css'>
+    {% load static %}
+    <link rel='stylesheet' href='{% static "manage/demo/vendor/simple-line-icons/css/simple-line-icons.css" %}'>
+    <link rel='stylesheet' href='{% static "manage/demo/vendor/font-awesome/css/fontawesome-all.min.css" %}'>
+    <link rel='stylesheet' href='{% static "manage/demo/css/styles.css" %}'>
     {% block css %}
-        <link rel='stylesheet' href='../../../static/manage/css/styles.css'>
+        <link rel='stylesheet' href='{% static "manage/css/styles.css" %}'>
     {% endblock %}
 </head>
 <body class="sidebar-fixed header-fixed">
@@ -32,9 +32,6 @@
         <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
             <i class="fa fa-bars"></i>
         </a>
-{#            <a href="" class="btn btn-link sidebar-toggle d-md-down-none" id="sidebar_toggle">#}
-{#                <i class="fa fa-bars"></i>#}
-{#            </a>#}
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item d-md-down-none">
@@ -64,37 +61,10 @@
 
 
                     <a class="nav-link" href="{% url 'profile' %}">
-                        <img src="../../../static/manage/demo/imgs/user.png" class="avatar avatar-sm" alt="logo">
+                        <img src="{% static 'manage/demo/imgs/user.png' %}" class="avatar avatar-sm" alt="logo">
                         <span class="small ml-1 d-md-down-none" style="color: #fff">{{ c.name }}</span>
                     </a>
 
-{#                <li class="nav-item dropdown">#}
-{#                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                        <img src="../../../static/manage/demo/imgs/user.png" class="avatar avatar-sm" alt="logo">#}
-{#                        <span class="small ml-1 d-md-down-none" style="color: #fff">{{ name }}</span>#}
-{#                    </a>#}
-
-{#                    <div class="dropdown-menu dropdown-menu-right">#}
-{#                        <div class="dropdown-header">账号</div>#}
-{##}
-{#                        <a href="#" class="dropdown-item">#}
-{#                            <i class="fa fa-envelope"></i> 消息#}
-{#                        </a>#}
-{##}
-{#                        <div class="dropdown-header">设置</div>#}
-{##}
-{#                        <a href="#" class="dropdown-item">#}
-{#                            <i class="fa fa-bell"></i> 系统通知#}
-{#                        </a>#}
-{##}
-{#                        <a href="#" class="dropdown-item">#}
-{#                            <i class="fa fa-cog"></i> 设置#}
-{#                        </a>#}
-{##}
-{#                        <a href="{% url 'logout' %}" class="dropdown-item btn-outline-danger">#}
-{#                            <i class="fa fa-power-off"></i>退出登录#}
-{#                        </a>#}
-{#                    </div>#}
                 </li>
             </ul>
         </nav>
@@ -108,7 +78,7 @@
 
 
                     <li class="nav-item">
-                        <a href="/view_all" class="nav-link">
+                        <a href="{% url 'view_all' %}" class="nav-link">
                             <i class="icon icon-pie-chart"></i> 概况
                         </a>
                     </li>
@@ -129,11 +99,6 @@
                                 <a href="{% url 'limit' %}" class="nav-link">临期/过期商品</a>
                             </li>
 
-{#                            <li class="nav-item">#}
-{#                                <a href="#" class="nav-link">#}
-{#                                    <i class="icon ui-icon-blank"></i> 评价查询#}
-{#                                </a>#}
-{#                            </li>#}
                         </ul>
                     </li>
 
@@ -156,15 +121,10 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/records" class="nav-link">
+                        <a href="{% url 'records' %}" class="nav-link">
                             <i class="icon icon-clock"></i> 记录查询
                         </a>
 
-{#                        <ul class="nav-dropdown-items">#}
-{#                            <li class="nav-item">#}
-{#                                <a href="/records" class="nav-link">记录查询</a>#}
-{#                            </li>#}
-{#                        </ul>#}
                     </li>
 
                     <li class="nav-item nav-dropdown">
@@ -257,14 +217,14 @@
 
 
 
-<script src="../../../static/manage/demo/vendor/jquery/jquery.min.js"></script>
-<script src="../../../static/manage/demo/vendor/popper.js/popper.min.js"></script>
-<script src="../../../static/manage/demo/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../../static/manage/demo/vendor/chart.js/chart.min.js"></script>
-<script src="../../../static/manage/demo/js/carbon.js"></script>
-<script src="../../../static/manage/demo/js/demo.js"></script>
-        <script src="../../../static/manage/js/b_demo.js"></script>
-        <script src="../../../static/manage/js/time.js"></script>
+<script src="{% static 'manage/demo/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'manage/demo/vendor/popper.js/popper.min.js' %}"></script>
+<script src="{% static 'manage/demo/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'manage/demo/vendor/chart.js/chart.min.js' %}"></script>
+<script src="{% static 'manage/demo/js/carbon.js' %}"></script>
+<script src="{% static 'manage/demo/js/demo.js' %}"></script>
+        <script src="{% static 'manage/js/b_demo.js' %}"></script>
+        <script src="{% static 'manage/js/time.js' %}"></script>
     {% block js %}
     {% endblock %}
 </body>
