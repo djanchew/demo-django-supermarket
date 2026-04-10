@@ -2,28 +2,21 @@
 <html>
 <head>
 <title>华商超市{% block title %}-首页{% endblock %}</title>
-    {% load staticfiles %}
-<!-- for-mobile-apps -->
+    {% load static %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //for-mobile-apps -->
-<link href="../../../static/home/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../../../static/home/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<!-- font-awesome icons -->
-<link href="../../../static/home/css/font-awesome.css" rel="stylesheet">
-<!-- //font-awesome icons -->
-<link href="../../../static/home/css/b_css.css" rel="stylesheet">
-<!-- js -->
-<script src="../../../static/home/js/jquery-1.11.1.min.js"></script>
-<!-- //js -->
+<link href="{% static 'home/css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'home/css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'home/css/font-awesome.css' %}" rel="stylesheet">
+<link href="{% static 'home/css/b_css.css' %}" rel="stylesheet">
+<script src="{% static 'home/js/jquery-1.11.1.min.js' %}"></script>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-<!-- start-smoth-scrolling -->
-<script type="text/javascript" src="../../../static/home/js/move-top.js"></script>
-<script type="text/javascript" src="../../../static/home/js/easing.js"></script>
+<script type="text/javascript" src="{% static 'home/js/move-top.js' %}"></script>
+<script type="text/javascript" src="{% static 'home/js/easing.js' %}"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){
@@ -32,12 +25,10 @@
 		});
 	});
 </script>
-<!-- start-smoth-scrolling -->
 </head>
 
 <body>
-<!-- 顶部logo 搜索框 -->
-	<div class="logo_products">
+<div class="logo_products">
 		<div class="container">
 		<div class="w3ls_logo_products_left1">
 				<ul class="phone_email">
@@ -60,12 +51,9 @@
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-<!-- //header -->
-<!-- 顶部导航菜单 -->
-	<div class="navigation-agileits">
+<div class="navigation-agileits">
 		<div class="container">
 			<nav class="navbar navbar-default">
-							<!-- Brand and toggle get grouped for better mobile display -->
 							<div class="navbar-header nav_2">
 								<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
 									<span class="sr-only">Toggle navigation</span>
@@ -91,34 +79,30 @@
 		</div>
 {% block location %}
 {% endblock %}
-<!-- //顶部导航菜单 -->
 {% block main %}
-	<!-- 超市图片切换 -->
-    <div class="skdslider" style="background-color:#000 ">
+	<div class="skdslider" style="background-color:#000 ">
 		<ul id="demo1">
 			<li>
-				<img src="../../../static/home/images/11.jpg" alt="" />
+				<img src="{% static 'home/images/11.jpg' %}" alt="" />
 				<div class="slide-desc">
 					<h3>优选百货，品质生活</h3>
 				</div>
 			</li>
 			<li>
-				<img src="../../../static/home/images/22.jpg" alt="" />
+				<img src="{% static 'home/images/22.jpg' %}" alt="" />
 				<div class="slide-desc">
 					<h3>优选百货，品质生活</h3>
 				</div>
 			</li>
 
 			<li>
-				<img src="../../../static/home/images/44.jpg" alt="" />
+				<img src="{% static 'home/images/44.jpg' %}" alt="" />
 				<div class="slide-desc">
 					<h3>优选百货，品质生活</h3>
 				</div>
 			</li>
 		</ul>
     </div>
-	<!-- //超市图片切换 -->
-	<!-- 热卖/特价 -->
 	<div class="top-brands">
 		<div class="container">
 		<h2>本周热卖</h2>
@@ -129,8 +113,7 @@
 						<li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">特价</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
-                        <!-- Hot -->
-						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
+                        <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
 							<div class="agile_top_brands_grids">
                             {% load my_tags %}
                                 {% for num in hot_keys %}
@@ -139,14 +122,14 @@
 									<div class="hover14 column" style="margin-bottom:40px ">
 										<div class="agile_top_brand_left_grid">
 											<div class="agile_top_brand_left_grid_pos">
-												<img src="../../../static/home/images/hot.png" alt=" " class="img-responsive" />
+												<img src="{% static 'home/images/hot.png' %}" alt=" " class="img-responsive" />
 											</div>
 											<div class="agile_top_brand_left_grid1">
 												<figure>
 													<div class="snipcart-item block" >
 														<div class="snipcart-thumb">
 															<a href="/detail?id={% get_object_id dict num %}">
-                                                                <img class="show_img" src="../../../static/media/goods_img/{% get_object_img dict num %}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+                                                                <img class="show_img" src="{% static 'media/goods_img/' %}{% get_object_img dict num %}.png" onerror="this.src='{% static 'media/goods_img/default.jpg' %}'">
                                                             </a>
 															<p>{% get_object_name dict num %}</p>
                                                             <p>销量：{{ num }}</p>
@@ -164,10 +147,7 @@
 							</div>
 
 						</div>
-                        <!-- //Hot -->
-
-                        <!-- Cheap -->
-						<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
+                        <div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
 							<div class="agile_top_brands_grids">
 
                                 {% for g in cheap_list %}
@@ -176,14 +156,14 @@
 									<div class="hover14 column" style="margin-bottom:40px ">
 										<div class="agile_top_brand_left_grid">
 											<div class="agile_top_brand_left_grid_pos">
-												<img src="../../../static/home/images/cheap.png" alt=" " class="img-responsive" />
+												<img src="{% static 'home/images/cheap.png' %}" alt=" " class="img-responsive" />
 											</div>
 											<div class="agile_top_brand_left_grid1">
 												<figure>
 													<div class="snipcart-item block" >
 														<div class="snipcart-thumb">
 															<a href="/detail?id={{ g.id }}">
-                                                                <img class="show_img" src="../../../static/media/goods_img/{{ g.sort }}_{{ g.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+                                                                <img class="show_img" src="{% static 'media/goods_img/' %}{{ g.sort }}_{{ g.id }}.png" onerror="this.src='{% static 'media/goods_img/default.jpg' %}'">
                                                             </a>
 															<p>{{ g.name }}</p>
                                                             <p><h4><span>￥ {{ g.sale_price }}</span></h4></p>
@@ -200,32 +180,28 @@
 								<div class="clearfix"> </div>
 							</div>
 						</div>
-                        <!-- //Cheap -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-    <!-- //热卖/特价 -->
-
-<!--分类图片-->
     <div class="ban-bottom-w3l">
         <div class="container">
         <div class="col-md-6 ban-bottom3">
                 <div class="ban-top">
-                    <img src="../../../static/home/images/p2.jpg" class="img-responsive" alt=""/>
+                    <img src="{% static 'home/images/p2.jpg' %}" class="img-responsive" alt=""/>
 
                 </div>
                 <div class="ban-img">
                     <div class=" ban-bottom1">
                         <div class="ban-top">
-                            <img src="../../../static/home/images/p3.jpg" class="img-responsive" alt=""/>
+                            <img src="{% static 'home/images/p3.jpg' %}" class="img-responsive" alt=""/>
 
                         </div>
                     </div>
                     <div class="ban-bottom2">
                         <div class="ban-top">
-                            <img src="../../../static/home/images/p4.jpg" class="img-responsive" alt=""/>
+                            <img src="{% static 'home/images/p4.jpg' %}" class="img-responsive" alt=""/>
 
                         </div>
                     </div>
@@ -234,7 +210,7 @@
             </div>
             <div class="col-md-6 ban-bottom">
                 <div class="ban-top">
-                    <img src="../../../static/home/images/111.jpg" class="img-responsive" alt=""/>
+                    <img src="{% static 'home/images/111.jpg' %}" class="img-responsive" alt=""/>
 
 
                 </div>
@@ -243,9 +219,6 @@
             <div class="clearfix"></div>
         </div>
     </div>
-<!--//分类图片-->
-
-<!-- new -->
 	<div class="newproducts-w3agile">
 		<div class="container">
 			<h3>本周上新</h3>
@@ -256,14 +229,14 @@
 						<div class="hover14 column">
 							<div class="agile_top_brand_left_grid">
 								<div class="agile_top_brand_left_grid_pos">
-									<img src="../../../static/home/images/offer.png" alt=" " class="img-responsive">
+									<img src="{% static 'home/images/offer.png' %}" alt=" " class="img-responsive">
 								</div>
 								<div class="agile_top_brand_left_grid1">
 									<figure>
 										<div class="snipcart-item block">
 											<div class="snipcart-thumb">
 												<a href="/detail?id={{ r.goods.id }}">
-                                                    <img class="show_img" src="../../../static/media/goods_img/{{ r.goods.sort }}_{{ r.goods.id }}.png" onerror="this.src='../../../static/media/goods_img/default.jpg'">
+                                                    <img class="show_img" src="{% static 'media/goods_img/' %}{{ r.goods.sort }}_{{ r.goods.id }}.png" onerror="this.src='{% static 'media/goods_img/default.jpg' %}'">
                                                 </a>
 												<p>{{ r.goods.name }}</p>
                                                 <p>{{ r.date|get_sub_date }}</p>
@@ -281,9 +254,7 @@
 				</div>
 		</div>
 	</div>
-<!-- //new -->
 {% endblock %}
-<!-- //footer -->
 <div class="footer">
 		<div class="container">
 			<div class="w3_footer_grids">
@@ -335,31 +306,15 @@
 
 
 	</div>
-<!-- //footer -->
-<!-- Bootstrap Core JavaScript -->
-<script src="../../../static/home/js/bootstrap.min.js"></script>
-
-<!-- top-header and slider -->
-<!-- here stars scrolling icon -->
+<script src="{% static 'home/js/bootstrap.min.js' %}"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-				};
-			*/
-
 			$().UItoTop({ easingType: 'easeOutQuart' });
 
 			});
 	</script>
-<!-- //here ends scrolling icon -->
-<script src="../../../static/home/js/minicart.min.js"></script>
+<script src="{% static 'home/js/minicart.min.js' %}"></script>
 <script>
-	// Mini Cart
 	paypal.minicart.render({
 		action: '#'
 	});
@@ -368,9 +323,8 @@
 		paypal.minicart.reset();
 	}
 </script>
-<!-- main slider-banner -->
-<script src="../../../static/home/js/skdslider.min.js"></script>
-<link href="../../../static/home/css/skdslider.css" rel="stylesheet">
+<script src="{% static 'home/js/skdslider.min.js' %}"></script>
+<link href="{% static 'home/css/skdslider.css' %}" rel="stylesheet">
 <script type="text/javascript">
 		jQuery(document).ready(function(){
 			jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});
@@ -381,6 +335,5 @@
 			
 		});
 </script>	
-<!-- //main slider-banner --> 
 </body>
 </html>
